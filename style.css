@@ -1,0 +1,101 @@
+/* 基本樣式 */
+body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    background-color: #f0f2f5;
+    color: #333;
+    margin: 0;
+    padding: 20px;
+    text-align: center;
+}
+
+header, footer {
+    margin-bottom: 20px;
+}
+
+h1 {
+    color: #e4000f; /* 寶可夢紅色 */
+}
+
+/* 按鈕控制區 */
+.controls button {
+    background-color: #3B4CCA; /* 寶可夢藍色 */
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    margin: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+.controls button:hover {
+    background-color: #000F94;
+}
+
+#clear-all {
+    background-color: #666;
+}
+#clear-all:hover {
+    background-color: #444;
+}
+
+
+/* 寶可夢圖片網格 */
+.pokemon-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 10px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* 寶可夢圖片樣式 */
+.pokemon-grid img {
+    width: 96px;
+    height: 96px;
+    cursor: pointer;
+    transition: transform 0.2s, opacity 0.3s, box-shadow 0.3s;
+    opacity: 0.7;
+    border: 3px solid transparent;
+    border-radius: 10px;
+}
+
+.pokemon-grid img:hover {
+    transform: scale(1.1);
+    opacity: 1;
+}
+
+/* 圖片被選中時的樣式 */
+.pokemon-grid img.selected {
+    opacity: 1;
+    transform: scale(1.05);
+    border-color: #FFDE00; /* 寶可夢黃色 */
+    background-color: #e3f2fd;
+    box-shadow: 0 0 10px #FFDE00;
+}
+
+/* 結果輸出區 */
+#output-container {
+    margin-top: 30px;
+    padding: 15px;
+    background-color: white;
+    border-radius: 8px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+#selected-ids {
+    display: block;
+    background-color: #eee;
+    padding: 10px;
+    border-radius: 5px;
+    min-height: 20px;
+    word-wrap: break-word; /* 確保長數字串會換行 */
+}
