@@ -99,10 +99,31 @@ h1 {
     min-height: 20px;
     word-wrap: break-word; /* 確保長數字串會換行 */
 }
-#select-evolved {
-    background-color: #4CAF50; /* 一個綠色，象徵進化與自然 */
+.controls {
+    display: flex;
+    flex-wrap: wrap; /* 在空間不足時自動換行 */
+    justify-content: center;
+    align-items: center;
+    gap: 20px; /* 增加群組之間的間距 */
 }
 
-#select-evolved:hover {
-    background-color: #45a049; /* 滑鼠懸停時的深綠色 */
+.control-group {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* 按鈕和核取方塊之間的間距 */
+    background-color: #e9e9e9;
+    padding: 8px 15px;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.control-group label {
+    cursor: pointer; /* 讓滑鼠移到文字上時顯示為可點擊的手指圖示 */
+    font-size: 14px;
+    user-select: none; /* 防止使用者選取文字 */
+}
+
+/* 讓獨立按鈕也能在 flex 排版中對齊 */
+.controls > button {
+    padding: 12px 15px;
 }
