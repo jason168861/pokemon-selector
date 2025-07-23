@@ -99,3 +99,10 @@ h1 {
     min-height: 20px;
     word-wrap: break-word; /* 確保長數字串會換行 */
 }
+#select-evolved {
+    background-color: #4CAF50; /* 一個綠色，象徵進化與自然 */
+}
+
+#select-evolved:hover {
+    background-color: #45a049; /* 滑鼠懸停時的深綠色 */
+}
