@@ -128,3 +128,26 @@ h1 {
 .controls > button {
     padding: 12px 15px;
 }
+
+.search-container {
+    margin-bottom: 20px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#search-input {
+    width: 100%;
+    padding: 12px 20px;
+    font-size: 18px;
+    border-radius: 25px; /* 圓角造型 */
+    border: 2px solid #ddd;
+    box-sizing: border-box; /* 讓 padding 不會影響總寬度 */
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+#search-input:focus {
+    outline: none;
+    border-color: #3B4CCA; /* 寶可夢藍色 */
+    box-shadow: 0 0 8px rgba(59, 76, 202, 0.5);
+}

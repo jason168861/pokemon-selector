@@ -1,3 +1,9 @@
+
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
@@ -10,38 +16,43 @@
     <header>
         <h1>寶可夢編號篩選器</h1>
         <p>點擊圖片來選擇或取消選擇寶可夢。</p>
-    </header>
-
-    <main>
-        <div class="controls">
-            <div class="control-group">
-                <button id="select-starters">勾選所有御三家</button>
-                <label>
-                    <input type="checkbox" id="include-starter-evolutions">
-                    包含進化型態
-                </label>
-            </div>
-            <div class="control-group">
-                <button id="select-pseudos">勾選所有準神</button>
-                <label>
-                    <input type="checkbox" id="include-pseudo-evolutions">
-                    包含進化型態
-                </label>
-            </div>
-            <button id="select-evolved">勾選所有進化型態</button>
-            <button id="clear-all">清除所有選擇</button>
-        </div>
-
-        <div id="pokemon-container" class="pokemon-grid"></div>
-    </main>
-
-    <footer>
+            <footer>
         <div id="output-container">
             <h3>已選擇的寶可夢編號：</h3>
             <code id="selected-ids"></code>
         </div>
     </footer>
+    </header>
 
+    <main>
+    <div class="search-container">
+        <input type="search" id="search-input" placeholder="依編號或名稱搜尋寶可夢...">
+    </div>
+
+    <div class="controls">
+        <div class="control-group">
+            <button id="select-starters">勾選所有御三家</button>
+            <label>
+                <input type="checkbox" id="include-starter-evolutions">
+                包含進化型態
+            </label>
+        </div>
+        <div class="control-group">
+            <button id="select-pseudos">勾選所有準神</button>
+            <label>
+                <input type="checkbox" id="include-pseudo-evolutions">
+                包含進化型態
+            </label>
+        </div>
+        <button id="select-evolved">勾選所有進化型態</button>
+        <button id="clear-all">清除所有選擇</button>
+    </div>
+
+    <div id="pokemon-container" class="pokemon-grid"></div>
+</main>
+
+
+<script src="pokemon_names_from_api.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
