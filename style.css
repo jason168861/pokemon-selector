@@ -40,7 +40,6 @@ h1 {
     background-color: #444;
 }
 
-
 /* 寶可夢圖片網格 */
 .pokemon-grid {
     display: grid;
@@ -99,6 +98,8 @@ h1 {
     min-height: 20px;
     word-wrap: break-word; /* 確保長數字串會換行 */
 }
+
+/* 美化新的控制區塊樣式 */
 .controls {
     display: flex;
     flex-wrap: wrap; /* 在空間不足時自動換行 */
