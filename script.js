@@ -102,54 +102,57 @@ document.addEventListener('DOMContentLoaded', () => {
         const sortedIds = Array.from(selectedPokemon).sort((a, b) => a - b);
         selectedIdsOutput.textContent = sortedIds.join(',');
     }
+// 用以下版本取代舊的 handleSearch 函式
 function handleSearch() {
     const searchTerm = searchInput.value.trim().toLowerCase();
-    const allPokemonImages = pokemonContainer.querySelectorAll('img');
+    // ✨ 尋找 .pokemon-card
+    const allPokemonCards = pokemonContainer.querySelectorAll('.pokemon-card');
 
-    allPokemonImages.forEach(img => {
-        const pokemonId = img.dataset.id;
-        const pokemonName = img.dataset.name;
+    allPokemonCards.forEach(card => { // ✨ 變數從 img 改為 card
+        const pokemonId = card.dataset.id;
+        const pokemonName = card.dataset.name;
         let isMatch = false;
 
         if (searchTerm === '') {
-            // 如果搜尋框是空的，顯示所有寶可夢
             isMatch = true;
         } else if (!isNaN(searchTerm) && searchTerm.length > 0) {
-            // ✨ 修改點：如果輸入的是數字，進行「絕對等於」比對
-            // 將 .startsWith() 改為 === 
             isMatch = (pokemonId === searchTerm);
         } else {
-            // 如果輸入的是文字（包含中文），維持部分字詞比對 (includes)
             isMatch = pokemonName.includes(searchTerm);
         }
 
-        // 根據是否匹配，來決定顯示或隱藏圖片
-        img.style.display = isMatch ? '' : 'none';
+        // ✨ 顯示或隱藏整張卡片
+        card.style.display = isMatch ? 'flex' : 'none'; // 使用 flex 以便卡片內部樣式正常
     });
 }
-    function handlePokemonClick(event) {
-        const img = event.target;
-        const pokemonId = parseInt(img.dataset.id, 10);
-        if (selectedPokemon.has(pokemonId)) {
-            selectedPokemon.delete(pokemonId);
-            img.classList.remove('selected');
-        } else {
-            selectedPokemon.add(pokemonId);
-            img.classList.add('selected');
-        }
-        updateOutput();
-    }
+function handlePokemonClick(event) {
+    // ✨ event.currentTarget 指的是掛載事件監聽器的元素，也就是 .pokemon-card
+    const card = event.currentTarget; 
+    const pokemonId = parseInt(card.dataset.id, 10);
 
-    function batchSelect(idList) {
-        idList.forEach(id => {
-            selectedPokemon.add(id);
-            const imgElement = document.querySelector(`img[data-id='${id}']`);
-            if (imgElement) {
-                imgElement.classList.add('selected');
-            }
-        });
-        updateOutput();
+    // 這裡的邏輯不變，只是目標從 img 變成 card
+    if (selectedPokemon.has(pokemonId)) {
+        selectedPokemon.delete(pokemonId);
+        card.classList.remove('selected'); // ✨ 修改
+    } else {
+        selectedPokemon.add(pokemonId);
+        card.classList.add('selected'); // ✨ 修改
     }
+    updateOutput();
+}
+
+// 用以下版本取代舊的 batchSelect 函式
+function batchSelect(idList) {
+    idList.forEach(id => {
+        selectedPokemon.add(id);
+        // ✨ 尋找 .pokemon-card 而不是 img
+        const cardElement = document.querySelector(`.pokemon-card[data-id='${id}']`); 
+        if (cardElement) {
+            cardElement.classList.add('selected'); // ✨ 修改
+        }
+    });
+    updateOutput();
+}
     
     function selectEvolvedForms() {
         const evolvedIds = [];
@@ -161,30 +164,48 @@ function handleSearch() {
         batchSelect(evolvedIds);
     }
 
-    function clearAllSelections() {
-        selectedPokemon.clear();
-        const allSelectedImages = document.querySelectorAll('.pokemon-grid img.selected');
-        allSelectedImages.forEach(img => img.classList.remove('selected'));
-        updateOutput();
-    }
+// 用以下版本取代舊的 clearAllSelections 函式
+function clearAllSelections() {
+    selectedPokemon.clear();
+    // ✨ 尋找 .pokemon-card.selected
+    const allSelectedCards = document.querySelectorAll('.pokemon-grid .pokemon-card.selected');
+    allSelectedCards.forEach(card => card.classList.remove('selected')); // ✨ 修改
+    updateOutput();
+}
 
     // --- 初始設定與事件監聽 ---
     // 迴圈生成所有寶可夢圖片
-      for (let i = 1; i <= POKEMON_COUNT; i++) {
-        const img = document.createElement('img');
-        const pokemonId = i;
-        // ✨ 從名稱列表中取得對應的名稱 (注意陣列索引是 id - 1)
-        const pokemonName = POKEMON_NAMES[pokemonId - 1] || `pokemon-${pokemonId}`;
+for (let i = 1; i <= POKEMON_COUNT; i++) {
+    const pokemonId = i;
+    const pokemonName = POKEMON_NAMES[pokemonId - 1] || `pokemon-${pokemonId}`;
 
-        img.src = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemonId}.png`;
-        img.alt = `Pokemon #${pokemonId}: ${pokemonName}`;
-        img.dataset.id = pokemonId;
-        // ✨ 將名稱也存入 data 屬性，方便搜尋時取用
-        img.dataset.name = pokemonName;
-        img.loading = 'lazy'; 
-        img.addEventListener('click', handlePokemonClick);
-        pokemonContainer.appendChild(img);
-    }
+    // ✨ 1. 建立一個容器 div 作為卡片
+    const card = document.createElement('div');
+    card.classList.add('pokemon-card');
+    card.dataset.id = pokemonId;
+    card.dataset.name = pokemonName; // 將 id 和 name 移到卡片上
+
+    // ✨ 2. 建立圖片元素 (與之前類似)
+    const img = document.createElement('img');
+    img.src = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemonId}.png`;
+    img.alt = `Pokemon #${pokemonId}: ${pokemonName}`;
+    img.loading = 'lazy';
+
+    // ✨ 3. 建立名稱元素
+    const nameSpan = document.createElement('span');
+    nameSpan.classList.add('pokemon-name');
+    nameSpan.textContent = pokemonName;
+
+    // ✨ 4. 將圖片和名稱都加到卡片裡
+    card.appendChild(img);
+    card.appendChild(nameSpan);
+    
+    // ✨ 5. 將事件監聽器加到卡片上，而不是只加在圖片上
+    card.addEventListener('click', handlePokemonClick);
+
+    // ✨ 6. 最後將整張卡片加到主容器中
+    pokemonContainer.appendChild(card);
+}
     
     // ✨ 新增：監聽搜尋框的輸入事件，做到即時搜尋
     searchInput.addEventListener('input', handleSearch);
