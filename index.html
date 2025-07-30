@@ -474,6 +474,9 @@
 // --- ============================ ---
             // --- App 1: CP 查詢器 初始化函式 ---
             // --- ============================ ---
+// --- ============================ ---
+            // --- App 1: CP 查詢器 初始化函式 ---
+            // --- ============================ ---
             function initializeCpChecker() {
                 const searchInput = document.getElementById('cpSearchInput');
                 const resultsContainer = document.getElementById('resultsContainer');
@@ -613,6 +616,7 @@
                     return Math.max(10, cp);
                 }
 
+                // ======================= 【修改點在這裡】 =======================
                 function displayResults(pokemonList) {
                     resultsContainer.innerHTML = ''; 
                     if (pokemonList.length === 0) {
@@ -623,14 +627,16 @@
                         const cp20 = calculatePerfectCp(pokemon, CPM_LEVEL_20);
                         const cp25 = calculatePerfectCp(pokemon, CPM_LEVEL_25);
                         
-                        const paddedId = String(pokemon.pokemon_id).padStart(3, '0');
-                        const primaryImageUrl = `https://assets.pokemon.com/assets/cms2/img/pokedex/full/${paddedId}.png`;
+                        // 使用和編號篩選器相同的快速圖片來源
+                        const imageUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.pokemon_id}.png`;
+
                         const displayName = getDisplayName(pokemon);
                         const pokemonCard = document.createElement('div');
                         pokemonCard.className = 'pokemon-card';
                         
+                        // 移除 onerror 的備用圖片邏輯，直接使用快速來源
                         pokemonCard.innerHTML = `
-                            <img src="${primaryImageUrl}" alt="${displayName}";">
+                            <img src="${imageUrl}" alt="${displayName}">
                             <div class="pokemon-info">
                                 <h2>${displayName}</h2>
                                 <div class="id">#${pokemon.pokemon_id}</div>
@@ -643,8 +649,8 @@
                         resultsContainer.appendChild(pokemonCard);
                     });
                 }
+                // ======================= 【修改結束】 =======================
                 
-                // ======================= 【修改點在這裡】 =======================
                 searchInput.addEventListener('input', (event) => {
                     const query = event.target.value.trim().toLowerCase();
                     if (!query) {
@@ -654,27 +660,20 @@
                     
                     const filteredPokemon = allPokemonData.filter(pokemon => {
                         const displayName = getDisplayName(pokemon).toLowerCase();
-                        
-                        // 判斷輸入的是否為數字
-                        // isNaN(query) -> 如果 query 是 "abc"，isNaN 回傳 true。如果 query 是 "123"，isNaN 回傳 false。
                         const isQueryNumeric = !isNaN(query);
 
                         if (isQueryNumeric) {
-                            // 如果是數字，就進行嚴格的編號比對
                             return String(pokemon.pokemon_id) === query;
                         } else {
-                            // 如果是文字，就進行名稱包含的比對
                             return displayName.includes(query);
                         }
                     });
 
                     displayResults(filteredPokemon);
                 });
-                // ======================= 【修改結束】 =======================
 
                 fetchPokemonData();
             }
-            // --- ================================== ---
             // --- App 2: 寶可夢編號篩選器 初始化函式 ---
             // --- ================================== ---
             function initializeIdSelector() {
