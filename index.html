@@ -463,35 +463,36 @@
 
             // ======================= 【修改點 2: 重構 CP 查詢器邏輯】 =======================
 // ======================= 【修改點 2: 重構 CP 查詢器邏輯】 ======================= 
+// ======================= 【修改點: 重構 CP 查詢器邏輯】 =======================
 function initializeCpChecker() {
     const searchInput = document.getElementById('cpSearchInput');
     const resultsContainer = document.getElementById('resultsContainer');
     const statusMessage = document.getElementById('statusMessage');
 
-    // 【修改】資料已經在全域變數 POKEMON_CP_DATA 中，直接使用即可！
     const allPokemonData = POKEMON_CP_DATA;
 
     if (!allPokemonData || allPokemonData.length === 0) {
-        statusMessage.textContent = "錯誤：寶可夢資料未載入，請檢查 pokemon_cp_data.js 檔案。";
+        statusMessage.textContent = "錯誤：寶可夢資料未載入，請檢查 precomputed_pokemon_cp.js 檔案。";
         statusMessage.style.color = 'red';
         return;
     }
 
-    statusMessage.textContent = `資料載入成功！共 ${allPokemonData.length} 筆資料。`;
-
-    // displayResults 函式完全不用改，因為它的輸入就是一個陣列
-    function displayResults(pokemonList) {
-        resultsContainer.innerHTML = '';
-        if (pokemonList.length === 0) {
-            resultsContainer.innerHTML = '<p style="text-align:center; color:#606770;">找不到符合條件的寶可夢。</p>';
-            return;
-        }
-        pokemonList.forEach(pokemon => {
+    // --- 【步驟 1】: 一次性建立所有寶可夢卡片 ---
+    // 我們只會執行這段程式碼一次，來建立所有的 DOM 元素。
+    // 這避免了在每次搜尋時都重新建立，是效能提升的關鍵。
+    function createAllPokemonCards() {
+        const fragment = document.createDocumentFragment(); // 使用 fragment 提升效能
+        allPokemonData.forEach(pokemon => {
             const pokemonCard = document.createElement('div');
             pokemonCard.className = 'pokemon-card';
+            // 將搜尋需要的資訊儲存在 data-* 屬性中，方便後續篩選
+            pokemonCard.dataset.name = pokemon.name.toLowerCase();
+            pokemonCard.dataset.id = pokemon.id;
 
+            // 【關鍵修正】: 增加 img.loading = 'lazy'
+            // 圖片將會延遲載入，直到使用者滾動到它們附近
             pokemonCard.innerHTML = `
-                <img src="${pokemon.imageUrl}" alt="${pokemon.name}">
+                <img src="${pokemon.imageUrl}" alt="${pokemon.name}" loading="lazy">
                 <div class="pokemon-info">
                     <h2>${pokemon.name}</h2>
                     <div class="id">#${pokemon.id}</div>
@@ -501,36 +502,60 @@ function initializeCpChecker() {
                     </div>
                 </div>
             `;
-            resultsContainer.appendChild(pokemonCard);
+            fragment.appendChild(pokemonCard);
         });
+        resultsContainer.appendChild(fragment); // 一次性將所有卡片加入 DOM
+        statusMessage.textContent = `資料載入成功！共 ${allPokemonData.length} 筆資料。請開始輸入以搜尋。`;
     }
 
-    // searchInput 的事件監聽器也完全不用改
-    searchInput.addEventListener('input', (event) => {
-        const query = event.target.value.trim().toLowerCase();
-        if (!query) {
-            displayResults(allPokemonData);
-            return;
-        }
+    // --- 【步驟 2】: 修改篩選邏輯 ---
+    // 這個函式不再刪除和重建 DOM，而是切換現有卡片的顯示狀態。
+    function filterResults(query) {
+        const allCards = resultsContainer.querySelectorAll('.pokemon-card');
+        let foundMatch = false;
 
-        const filteredPokemon = allPokemonData.filter(pokemon => {
-            const displayName = pokemon.name.toLowerCase();
+        allCards.forEach(card => {
+            const pokemonName = card.dataset.name;
+            const pokemonId = card.dataset.id;
             const isQueryNumeric = !isNaN(query);
 
-            if (isQueryNumeric) {
-                return String(pokemon.id) === query;
+            let isMatch = false;
+            if (!query) {
+                isMatch = true; // 如果搜尋框是空的，顯示所有卡片
+            } else if (isQueryNumeric) {
+                isMatch = pokemonId.startsWith(query);
             } else {
-                return displayName.includes(query);
+                isMatch = pokemonName.includes(query);
+            }
+
+            if (isMatch) {
+                card.style.display = 'flex';
+                foundMatch = true;
+            } else {
+                card.style.display = 'none';
             }
         });
-        displayResults(filteredPokemon);
+        
+        // 更新狀態訊息
+        if (!foundMatch && query) {
+             statusMessage.textContent = "找不到符合條件的寶可夢。";
+        } else if (query) {
+             statusMessage.textContent = `顯示 "${query}" 的搜尋結果...`;
+        } else {
+             statusMessage.textContent = `資料載入成功！共 ${allPokemonData.length} 筆資料。請開始輸入以搜尋。`;
+        }
+    }
+
+    // --- 【步驟 3】: 更新事件監聽器 ---
+    searchInput.addEventListener('input', (event) => {
+        const query = event.target.value.trim().toLowerCase();
+        filterResults(query);
     });
 
-    // 初始顯示所有結果
-    displayResults(allPokemonData);
+    // --- 初始化 ---
+    createAllPokemonCards(); // 載入 App 時就建立好所有卡片
 }
 // ======================= 【修改結束】 =======================
-
 
             // --- App 2: 寶可夢編號篩選器 初始化函式 (此部分不變) ---
             function initializeIdSelector() {
