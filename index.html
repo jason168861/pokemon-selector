@@ -625,14 +625,12 @@
                         
                         const paddedId = String(pokemon.pokemon_id).padStart(3, '0');
                         const primaryImageUrl = `https://assets.pokemon.com/assets/cms2/img/pokedex/full/${paddedId}.png`;
-                        const fallbackImageUrl = `https://pogoapi.net/static/images/pokemon/${paddedId}.png`;
-
                         const displayName = getDisplayName(pokemon);
                         const pokemonCard = document.createElement('div');
                         pokemonCard.className = 'pokemon-card';
                         
                         pokemonCard.innerHTML = `
-                            <img src="${primaryImageUrl}" alt="${displayName}" onerror="this.onerror=null; this.src='${fallbackImageUrl}';">
+                            <img src="${primaryImageUrl}" alt="${displayName}";">
                             <div class="pokemon-info">
                                 <h2>${displayName}</h2>
                                 <div class="id">#${pokemon.pokemon_id}</div>
