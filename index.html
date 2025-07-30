@@ -61,7 +61,7 @@
         }
 
         .tab-button.active::after {
-             transform: scaleX(1);
+            transform: scaleX(1);
         }
 
         /* --- App 內容區 --- */
@@ -363,17 +363,17 @@
 
         <div id="cp-checker-app" class="app-content active">
              <div class="container">
-                <h1>Pokémon Go</h1>
-                <p style="text-align: center; margin-top: -15px; margin-bottom: 25px; color: #606770;">20等 & 25等 IV100 CP 查詢</p>
-        
-                <div class="search-area">
-                    <input type="text" id="cpSearchInput" placeholder="輸入寶可夢名稱、形態或全國圖鑑編號...">
-                </div>
-                
-                <div id="statusMessage">正在初始化...</div>
-        
-                <div id="resultsContainer"></div>
-            </div>
+                 <h1>Pokémon Go</h1>
+                 <p style="text-align: center; margin-top: -15px; margin-bottom: 25px; color: #606770;">20等 & 25等 IV100 CP 查詢</p>
+         
+                 <div class="search-area">
+                     <input type="text" id="cpSearchInput" placeholder="輸入寶可夢名稱、形態或全國圖鑑編號...">
+                 </div>
+                 
+                 <div id="statusMessage">正在初始化...</div>
+         
+                 <div id="resultsContainer"></div>
+             </div>
         </div>
 
         <div id="id-selector-app" class="app-content">
@@ -426,6 +426,7 @@
         </div>
     </div>
 
+    <script src="pokemon_translation_map.js"></script>
     <script src="pokemon_names_from_api.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -433,26 +434,20 @@
             const tabButtons = document.querySelectorAll('.tab-button');
             const appContents = document.querySelectorAll('.app-content');
             
-            // 用來標記 App 是否已初始化，實現 Lazy Initialization
             let cpAppInitialized = false;
             let idAppInitialized = false;
 
             tabButtons.forEach(button => {
                 button.addEventListener('click', () => {
-                    // 移除所有按鈕的 active class
                     tabButtons.forEach(btn => btn.classList.remove('active'));
-                    // 為點擊的按鈕加上 active class
                     button.classList.add('active');
 
                     const targetAppId = button.dataset.target;
 
-                    // 隱藏所有 App 內容
                     appContents.forEach(content => content.classList.remove('active'));
-                    // 顯示目標 App 內容
                     const targetApp = document.getElementById(targetAppId);
                     targetApp.classList.add('active');
 
-                    // --- 延遲初始化 ---
                     if (targetAppId === 'cp-checker-app' && !cpAppInitialized) {
                         initializeCpChecker();
                         cpAppInitialized = true;
@@ -463,77 +458,23 @@
                 });
             });
 
-            // 預設初始化第一個 App
             initializeCpChecker();
             cpAppInitialized = true;
 
-
-            // --- ============================ ---
-            // --- App 1: CP 查詢器 初始化函式 ---
-            // --- ============================ ---
-// --- ============================ ---
-            // --- App 1: CP 查詢器 初始化函式 ---
-            // --- ============================ ---
-// --- ============================ ---
-            // --- App 1: CP 查詢器 初始化函式 ---
-            // --- ============================ ---
+            // ======================= 【修改點 2: 重構 CP 查詢器邏輯】 =======================
             function initializeCpChecker() {
                 const searchInput = document.getElementById('cpSearchInput');
                 const resultsContainer = document.getElementById('resultsContainer');
                 const statusMessage = document.getElementById('statusMessage');
                 
                 const pogoApiUrl = 'https://pogoapi.net/api/v1/pokemon_stats.json';
-                const pokeApiSpeciesUrl = 'https://pokeapi.co/api/v2/pokemon-species?limit=1035';
-                
                 const CPM_LEVEL_20 = 0.59740001;
                 const CPM_LEVEL_25 = 0.667934; 
                 
                 let allPokemonData = [];
                 let multiFormIds = new Set();
                 
-                async function createTranslationMap() {
-                    try {
-                        statusMessage.textContent = '步驟 1/3: 正在從 PokeAPI 獲取寶可夢列表...';
-                        const response = await fetch(pokeApiSpeciesUrl);
-                        if (!response.ok) throw new Error('無法獲取 PokeAPI 種族列表');
-                        const data = await response.json();
-
-                        statusMessage.textContent = `步驟 2/3: 正在獲取 ${data.results.length} 筆寶可夢的詳細翻譯... (此步驟可能需要一些時間)`;
-                        
-                        const detailPromises = data.results.map(species => fetch(species.url).then(res => res.json()));
-                        const allSpeciesDetails = await Promise.all(detailPromises);
-
-                        const translationMap = {};
-                        for (const detail of allSpeciesDetails) {
-                            let enName = '';
-                            let zhHantName = '';
-
-                            for (const nameInfo of detail.names) {
-                                if (nameInfo.language.name === 'en') enName = nameInfo.name;
-                                if (nameInfo.language.name === 'zh-Hant') zhHantName = nameInfo.name;
-                            }
-
-                            if (enName && zhHantName) {
-                                translationMap[enName] = zhHantName;
-                            }
-                        }
-
-                        // 手動修正API名稱問題
-                        translationMap["Nidoran♀"] = '尼多蘭';
-                        translationMap["Nidoran♂"] = '尼多朗';
-                        translationMap["Farfetch'd"] = '大蔥鴨';
-                        translationMap["Mr. Mime"] = '魔牆人偶';
-                        translationMap["Sirfetch'd"] = '蔥遊兵';
-                        translationMap["Mr. Rime"] = '踏冰人偶';
-
-                        return translationMap;
-
-                    } catch (error) {
-                        console.error("建立名稱對照表時發生錯誤:", error);
-                        statusMessage.textContent = '無法建立名稱對照表，請刷新頁面再試。';
-                        throw error;
-                    }
-                }
+                // createTranslationMap() 函式已移除，因為翻譯已預先載入
 
                 function getDisplayName(pokemon) {
                     const baseName = pokemon.pokemon_name;
@@ -555,53 +496,56 @@
                     return baseName;
                 }
 
-                async function fetchPokemonData() {
-                    try {
-                        const nameTranslations = await createTranslationMap();
+                function fetchPokemonData() {
+                    statusMessage.textContent = '正在從 PogoAPI 載入寶可夢數值資料...';
+                    
+                    fetch(pogoApiUrl)
+                        .then(response => {
+                            if (!response.ok) throw new Error(`PogoAPI 請求失敗，狀態碼: ${response.status}`);
+                            return response.json();
+                        })
+                        .then(rawData => {
+                            // 直接使用從 pokemon_translation_map.js 載入的全域變數
+                            const nameTranslations = POKEMON_TRANSLATIONS;
 
-                        statusMessage.textContent = '步驟 3/3: 正在從 PogoAPI 載入寶可夢數值資料...';
-                        const response = await fetch(pogoApiUrl);
-                        if (!response.ok) throw new Error(`PogoAPI 請求失敗，狀態碼: ${response.status}`);
-                        
-                        const rawData = await response.json();
+                            rawData.forEach(pokemon => {
+                                const translatedName = nameTranslations[pokemon.pokemon_name];
+                                if (translatedName) {
+                                    pokemon.pokemon_name = translatedName;
+                                }
+                            });
 
-                        rawData.forEach(pokemon => {
-                            const translatedName = nameTranslations[pokemon.pokemon_name];
-                            if (translatedName) {
-                                pokemon.pokemon_name = translatedName;
+                            const uniquePokemonList = [];
+                            const seenStats = new Set();
+                            for (const pokemon of rawData) {
+                                const signature = `${pokemon.pokemon_id}-${pokemon.base_attack}-${pokemon.base_defense}-${pokemon.base_stamina}`;
+                                if (!seenStats.has(signature)) {
+                                    seenStats.add(signature);
+                                    uniquePokemonList.push(pokemon);
+                                }
                             }
+
+                            const idCounts = {};
+                            uniquePokemonList.forEach(p => {
+                                idCounts[p.pokemon_id] = (idCounts[p.pokemon_id] || 0) + 1;
+                            });
+                            
+                            multiFormIds.clear();
+                            for (const id in idCounts) {
+                                if (idCounts[id] > 1) {
+                                    multiFormIds.add(parseInt(id, 10));
+                                }
+                            }
+
+                            allPokemonData = uniquePokemonList;
+                            statusMessage.textContent = `資料載入成功！共 ${allPokemonData.length} 筆獨立數值資料。`;
+                            displayResults(allPokemonData); 
+                        })
+                        .catch(error => {
+                            console.error("獲取寶可夢資料時發生錯誤:", error);
+                            statusMessage.textContent = "無法載入寶可夢資料，請檢查網路連線或稍後再試。";
+                            statusMessage.style.color = 'red';
                         });
-
-                        const uniquePokemonList = [];
-                        const seenStats = new Set();
-                        for (const pokemon of rawData) {
-                            const signature = `${pokemon.pokemon_id}-${pokemon.base_attack}-${pokemon.base_defense}-${pokemon.base_stamina}`;
-                            if (!seenStats.has(signature)) {
-                                seenStats.add(signature);
-                                uniquePokemonList.push(pokemon);
-                            }
-                        }
-
-                        const idCounts = {};
-                        uniquePokemonList.forEach(p => {
-                            idCounts[p.pokemon_id] = (idCounts[p.pokemon_id] || 0) + 1;
-                        });
-                        
-                        multiFormIds.clear();
-                        for (const id in idCounts) {
-                            if (idCounts[id] > 1) {
-                                multiFormIds.add(parseInt(id, 10));
-                            }
-                        }
-
-                        allPokemonData = uniquePokemonList;
-                        statusMessage.textContent = `資料載入成功！共 ${allPokemonData.length} 筆獨立數值資料。`;
-                        displayResults(allPokemonData); 
-                    } catch (error) {
-                        console.error("獲取寶可夢資料時發生錯誤:", error);
-                        statusMessage.textContent = "無法載入寶可夢資料，請檢查網路連線或稍後再試。";
-                        statusMessage.style.color = 'red';
-                    }
                 }
                 
                 function calculatePerfectCp(pokemon, cpm) {
@@ -616,7 +560,6 @@
                     return Math.max(10, cp);
                 }
 
-                // ======================= 【修改點在這裡】 =======================
                 function displayResults(pokemonList) {
                     resultsContainer.innerHTML = ''; 
                     if (pokemonList.length === 0) {
@@ -626,15 +569,11 @@
                     pokemonList.forEach(pokemon => {
                         const cp20 = calculatePerfectCp(pokemon, CPM_LEVEL_20);
                         const cp25 = calculatePerfectCp(pokemon, CPM_LEVEL_25);
-                        
-                        // 使用和編號篩選器相同的快速圖片來源
                         const imageUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.pokemon_id}.png`;
-
                         const displayName = getDisplayName(pokemon);
                         const pokemonCard = document.createElement('div');
                         pokemonCard.className = 'pokemon-card';
                         
-                        // 移除 onerror 的備用圖片邏輯，直接使用快速來源
                         pokemonCard.innerHTML = `
                             <img src="${imageUrl}" alt="${displayName}">
                             <div class="pokemon-info">
@@ -649,7 +588,6 @@
                         resultsContainer.appendChild(pokemonCard);
                     });
                 }
-                // ======================= 【修改結束】 =======================
                 
                 searchInput.addEventListener('input', (event) => {
                     const query = event.target.value.trim().toLowerCase();
@@ -674,16 +612,16 @@
 
                 fetchPokemonData();
             }
-            // --- App 2: 寶可夢編號篩選器 初始化函式 ---
-            // --- ================================== ---
+            // ======================= 【修改結束】 =======================
+
+
+            // --- App 2: 寶可夢編號篩選器 初始化函式 (此部分不變) ---
             function initializeIdSelector() {
-                // 原本 pokemon_names_from_api.js 的內容直接放在這裡
-                
-                // --- DOM 元素定義 ---
-                const POKEMON_COUNT = 1025; // 先暫時對應到名字列表長度
+                // ... 這裡的程式碼與您原本提供的一樣，保持不變 ...
+                const POKEMON_COUNT = 1025;
                 const pokemonContainer = document.getElementById('pokemon-container');
                 const selectedIdsOutput = document.getElementById('selected-ids');
-                const searchInput = document.getElementById('idSearchInput'); // 使用新 ID
+                const searchInput = document.getElementById('idSearchInput');
                 const startersButton = document.getElementById('select-starters');
                 const pseudosButton = document.getElementById('select-pseudos');
                 const evolvedButton = document.getElementById('select-evolved');
@@ -698,7 +636,6 @@
                 
                 let selectedPokemon = new Set();
 
-                // --- 資料定義 ---
                 const STARTERS_BASE_IDS = [1, 4, 7, 152, 155, 158, 252, 255, 258, 387, 390, 393, 495, 498, 501, 650, 653, 656, 722, 725, 728, 810, 813, 816, 906, 909, 912];
                 const STARTER_FAMILIES_IDS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 152, 153, 154, 155, 156, 157, 158, 159, 160, 252, 253, 254, 255, 256, 257, 258, 259, 260, 387, 388, 389, 390, 391, 392, 393, 394, 395, 495, 496, 497, 498, 499, 500, 501, 502, 503, 650, 651, 652, 653, 654, 655, 656, 657, 658, 722, 723, 724, 725, 726, 727, 728, 729, 730, 810, 811, 812, 813, 814, 815, 816, 817, 818, 906, 907, 908, 909, 910, 911, 912, 913, 914];
                 const PSEUDOS_BASE_IDS = [147, 246, 371, 374, 443, 633, 704, 782, 885, 996];
@@ -707,7 +644,6 @@
                 const MEGA_EVO_BASE_IDS = [3, 6, 9, 15, 18, 65, 80, 94, 115, 127, 130, 142, 150, 181, 208, 212, 214, 229, 248, 254, 257, 260, 282, 302, 303, 306, 308, 310, 319, 323, 334, 354, 359, 362, 373, 376, 380, 381, 382, 383, 384, 428, 445, 448, 460, 475, 531, 719].sort((a, b) => a - b);
                 const MEGA_EVO_FAMILY_IDS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 13, 14, 15, 16, 17, 18, 63, 64, 65, 79, 80, 92, 93, 94, 95, 115, 123, 127, 129, 130, 142, 150, 179, 180, 181, 208, 212, 214, 228, 229, 246, 247, 248, 252, 253, 254, 255, 256, 257, 258, 259, 260, 280, 281, 282, 302, 303, 304, 305, 306, 307, 308, 309, 310, 318, 319, 322, 323, 333, 334, 353, 354, 359, 361, 362, 371, 372, 373, 374, 375, 376, 380, 381, 382, 383, 384, 427, 428, 443, 444, 445, 447, 448, 459, 460, 475, 531, 719].sort((a, b) => a - b);
                 
-                // --- 函式定義 ---
                 function updateOutput() {
                     const sortedIds = Array.from(selectedPokemon).sort((a, b) => a - b);
                     selectedIdsOutput.textContent = sortedIds.join(',');
@@ -779,13 +715,10 @@
                     selectAllShownButton.style.display = 'inline-block';
                 }
 
-                // --- 初始設定與事件監聽 ---
-                // 只在首次初始化時生成卡片
                 if (pokemonContainer.innerHTML === '') {
                     const fragment = document.createDocumentFragment();
                     for (let i = 1; i <= POKEMON_COUNT; i++) {
                         const pokemonId = i;
-                        // 修正名稱陣列索引
                         const pokemonName = POKEMON_NAMES[pokemonId - 1] || `Pokemon #${pokemonId}`;
                         const card = document.createElement('div');
                         card.className = 'pokemon-card';
