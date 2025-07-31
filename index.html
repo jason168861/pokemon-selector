@@ -159,18 +159,22 @@
         }
         #cp-checker-app .cp-container {
             display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
+            justify-content: space-around; /* 改為平均分佈 */
+            width: 100%; /* 確保容器佔滿寬度 */
+            margin-top: 10px; /* 增加頂部間距 */
         }
         #cp-checker-app .pokemon-info .cp {
             font-size: 20px;
             font-weight: bold;
             color: #e63946;
+            text-align: center; /* 文字置中 */
+            line-height: 1.2; /* 調整行高 */
         }
         #cp-checker-app .pokemon-info .cp span {
             font-size: 12px;
             font-weight: normal;
             color: #606770;
+            display: block; /* 讓標籤自成一行 */
         }
 
         /* --- ================================ --- */
@@ -441,32 +445,22 @@
         }
         #eggs-app .egg2km {
             background-image: linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1)), url('https://assets.dittobase.com/go/items/egg-2km.png');
-    
-            /* 其他樣式保持不變 */
             background-size: cover;
         }
         #eggs-app .egg5km {
             background-image: linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1)), url('https://assets.dittobase.com/go/items/egg-5km.png');
-
-            /* 其他樣式保持不變 */
             background-size: cover;
         }
         #eggs-app .egg7km {
             background-image: linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1)), url('https://assets.dittobase.com/go/items/egg-7km.png');
-
-            /* 其他樣式保持不變 */
             background-size: cover;
         }
         #eggs-app .egg10km {
             background-image: linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1)), url('https://assets.dittobase.com/go/items/egg-10km.png');
-
-            /* 其他樣式保持不變 */
             background-size: cover;
         }
         #eggs-app .egg12km {
             background-image: linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1)), url('https://assets.dittobase.com/go/items/egg-12km.png');
-    
-            /* 其他樣式保持不變 */
             background-size: cover;
         }
         #eggs-app .egg-list-img img {
@@ -490,21 +484,126 @@
         #eggs-app .font-size-x-small {
             font-size: 0.8em;
         }
-        /* --- 響應式調整 (Responsive Adjustments) --- */
 
-/* 讓田野調查的獎勵圖示可以換行，並增加行距 */
-#research-app .reward-preview {
-    flex-wrap: wrap;
-    gap: 4px 0; /* 垂直間隔4px，水平間隔由既有樣式控制 */
-    justify-content: flex-end; /* 讓圖示靠右對齊 */
+        /* --- ================================ --- */
+        /* --- 5. 升級條件 (App 5) 樣式 (新增區塊) --- */
+        /* --- ================================ --- */
+        #level-up-app {
+            text-align: center;
+        }
+        #level-up-app header {
+            margin-bottom: 25px;
+        }
+        #level-up-app h1 {
+            color: #1877f2;
+        }
+#level-up-app .level-up-grid {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+gap: 20px;
+padding: 10px;
 }
+        #level-up-app .level-up-grid a {
+            display: block;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+        #level-up-app .level-up-grid a:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        }
+        #level-up-app .level-up-grid img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
 
-/* 螢幕寬度小於 768px 時觸發 (適用於多數手機) */
-@media (max-width: 768px) {
-    /* 將田野調查的容器改為垂直排列 (單欄) */
-    #research-app #research-container {
-        flex-direction: column;
-    }
+        /* --- 響應式調整 (Responsive Adjustments) --- */
+        /* 讓田野調查的獎勵圖示可以換行，並增加行距 */
+        #research-app .reward-preview {
+            flex-wrap: wrap;
+            gap: 4px 0; /* 垂直間隔4px，水平間隔由既有樣式控制 */
+            justify-content: flex-end; /* 讓圖示靠右對齊 */
+        }
+        /* 螢幕寬度小於 768px 時觸發 (適用於多數手機) */
+        @media (max-width: 768px) {
+            /* 將田野調查的容器改為垂直排列 (單欄) */
+            #research-app #research-container {
+                flex-direction: column;
+            }
+        }
+        /* --- ================================== --- */
+/* --- 6. 搜尋篩選指令 (App 6) 樣式 --- */
+/* --- ================================== --- */
+#search-filters-app .container {
+    width: 100%;
+    max-width: 900px; /* 稍微加寬以容納表格 */
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 24px;
+    box-sizing: border-box;
+    margin: 0 auto; /* 置中 */
+}
+#search-filters-app h1 {
+    font-size: 24px;
+    color: #1877f2;
+    text-align: center;
+    margin-bottom: 25px;
+}
+#search-filters-app h2 {
+    font-size: 20px;
+    color: #050505;
+    border-bottom: 2px solid #e9ebee;
+    padding-bottom: 8px;
+    margin-top: 30px;
+    margin-bottom: 15px;
+}
+#search-filters-app h3 {
+    font-size: 18px;
+    color: #1c1e21;
+    margin-top: 25px;
+    margin-bottom: 10px;
+}
+#search-filters-app table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    font-size: 16px;
+}
+#search-filters-app th, #search-filters-app td {
+    border: 1px solid #dddfe2;
+    padding: 12px;
+    text-align: left;
+}
+#search-filters-app th {
+    background-color: #f5f6f7;
+    font-weight: bold;
+}
+#search-filters-app td:first-child {
+    font-weight: 600;
+    color: #3b4cca;
+    width: 35%; /* 讓第一欄寬度固定 */
+}
+#search-filters-app p {
+    font-size: 16px;
+    line-height: 1.6;
+}
+#search-filters-app code {
+    background-color: #e9ebee;
+    padding: 3px 6px;
+    border-radius: 4px;
+    font-family: Consolas, "Courier New", monospace;
+    color: #e63946;
+}
+#search-filters-app .note {
+    background-color: #fffbe2;
+    border-left: 4px solid #ffc107;
+    padding: 12px;
+    margin-top: 15px;
+    border-radius: 4px;
 }
     </style>
 </head>
@@ -516,12 +615,14 @@
             <button class="tab-button" data-target="id-selector-app">寶可夢編號篩選器</button>
             <button class="tab-button" data-target="research-app">田野調查任務</button>
             <button class="tab-button" data-target="eggs-app">孵蛋列表</button>
-        </nav>
+            <button class="tab-button" data-target="level-up-app">升級條件</button>
+            <button class="tab-button" data-target="search-filters-app">搜尋篩選指令</button>
+            </nav>
 
         <div id="cp-checker-app" class="app-content active">
              <div class="container">
                 <h1>Pokémon Go</h1>
-                <p style="text-align: center; margin-top: -15px; margin-bottom: 25px; color: #606770;">20等 & 25等 IV100 CP 查詢</p>
+                <p style="text-align: center; margin-top: -15px; margin-bottom: 25px; color: #606770;">15等、20等 & 25等 IV100 CP 查詢</p>
                 <div class="search-area">
                     <input type="text" id="cpSearchInput" placeholder="輸入寶可夢名稱、形態或全國圖鑑編號...">
                 </div>
@@ -579,7 +680,7 @@
         <div id="research-app" class="app-content">
             <header>
                 <h1>當前田野調查任務</h1>
-                <p style="text-align: center; color: #606770;">資料來源：<a href="https://leekduck.com/research/" target="_blank" rel="noopener noreferrer">Leek Duck</a></p>                <div class="tabs">
+                <p style="text-align: center; color: #606770;">資料來源：<a href="https://leekduck.com/research/" target="_blank" rel="noopener noreferrer">Leek Duck</a></p>               <div class="tabs">
                     <input type="radio" id="less-option" name="reward-toggle" checked>
                     <label class="tab" for="less-option">精選獎勵</label>
                     <input type="radio" id="all-option" name="reward-toggle">
@@ -593,48 +694,147 @@
             </main>
         </div>
         
-<div id="eggs-app" class="app-content">
-    <div class="page-content">
-        <div class="header-page">
-            <h1 class="page-title">當期蛋池孵化列表</h1>
-            <div class="page-date">最後更新：2025年7月31日</div>
+        <div id="eggs-app" class="app-content">
+            <div class="page-content">
+                <div class="header-page">
+                    <h1 class="page-title">當期蛋池孵化列表</h1>
+                    <div class="page-date">最後更新：2025年7月31日</div>
+                </div>
+                <p style="text-align: center; color: #606770;">資料來源：<a href="https://leekduck.com/eggs/" target="_blank" rel="noopener noreferrer">Leek Duck</a></p>
+                <p>這些是 Pokémon GO 目前「快樂每一天」季節中所有可能的孵化寶可夢。</p>
+                <hr/>
+                
+                <h2>2 公里蛋</h2>
+                <ul class="egg-list-flex" id="egg-list-2km"></ul>
+                <hr/>
+                
+                <h2>5 公里蛋</h2>
+                <ul class="egg-list-flex" id="egg-list-5km"></ul>
+                
+                <h2>5 公里蛋 (冒險同步獎勵)</h2>
+                <p>此類蛋可從每週的「時時刻刻冒險」獎勵中獲得。</p>
+                <ul class="egg-list-flex" id="egg-list-5km-sync"></ul>
+                <hr/>
+                
+                <h2>7 公里蛋</h2>
+                <ul class="egg-list-flex" id="egg-list-7km"></ul>
+
+                <h2>7 公里蛋 (路線禮物)</h2>
+                <p>此類蛋可從路線終點交換夥伴「馬特奧」的友情禮物中獲得。</p>
+                <ul class="egg-list-flex" id="egg-list-7km-route"></ul>
+                <hr/>
+
+                <h2>10 公里蛋</h2>
+                <ul class="egg-list-flex" id="egg-list-10km"></ul>
+                
+                <h2>10 公里蛋 (冒險同步獎勵)</h2>
+                <p>此類蛋可從每週的「時時刻刻冒險」獎勵中獲得。</p>
+                <ul class="egg-list-flex" id="egg-list-10km-sync"></ul>
+                <hr/>
+                
+                <h2>12 公里蛋</h2>
+                <ul class="egg-list-flex" id="egg-list-12km"></ul>
+            </div>
         </div>
-        <p style="text-align: center; color: #606770;">資料來源：<a href="https://leekduck.com/eggs/" target="_blank" rel="noopener noreferrer">Leek Duck</a></p>
-        <p>這些是 Pokémon GO 目前「快樂每一天」季節中所有可能的孵化寶可夢。</p>
-        <hr/>
         
-        <h2>2 公里蛋</h2>
-        <ul class="egg-list-flex" id="egg-list-2km"></ul>
-        <hr/>
+        <div id="level-up-app" class="app-content">
+            <header>
+                <h1>Pokémon Go 等級挑戰 & 升級條件</h1>
+                <p style="text-align: center; color: #606770;">點擊圖片可於新分頁開啟大圖。</p>
+            </header>
+            <div class="level-up-grid">
+                <a href="./img/41-46.jpg" target="_blank"><img src="./img/41-46.jpg" alt="等級 41-46 升級條件"></a>
+                <a href="./img/47-50.jpg" target="_blank"><img src="./img/47-50.jpg" alt="等級 47-50 升級條件"></a>
+                <a href="./img/43.jpg" target="_blank"><img src="./img/43.jpg" alt="43級挑戰 特殊調查"></a>
+                <a href="./img/45.jpg" target="_blank"><img src="./img/45.jpg" alt="45級挑戰 特殊調查"></a>
+                <a href="./img/48.jpg" target="_blank"><img src="./img/48.jpg" alt="48級挑戰 特殊調查"></a>
+                <a href="./img/50.jpg" target="_blank"><img src="./img/50.jpg" alt="50級挑戰 特殊調查"></a>
+            </div>
+        </div>
+<div id="search-filters-app" class="app-content">
+    <div class="container">
+        <h1>Pokémon Go 搜尋篩選指令大全</h1>
         
-        <h2>5 公里蛋</h2>
-        <ul class="egg-list-flex" id="egg-list-5km"></ul>
-        
-        <h2>5 公里蛋 (冒險同步獎勵)</h2>
-        <p>此類蛋可從每週的「時時刻刻冒險」獎勵中獲得。</p>
-        <ul class="egg-list-flex" id="egg-list-5km-sync"></ul>
-        <hr/>
-        
-        <h2>7 公里蛋</h2>
-        <ul class="egg-list-flex" id="egg-list-7km"></ul>
+        <h2>寶可夢搜尋篩選條件</h2>
 
-        <h2>7 公里蛋 (路線禮物)</h2>
-        <p>此類蛋可從路線終點交換夥伴「馬特奧」的友情禮物中獲得。</p>
-        <ul class="egg-list-flex" id="egg-list-7km-route"></ul>
-        <hr/>
+        <h3>1. 固定字詞</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>搜尋字詞</th>
+                    <th>功能</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>雄性、雌性、性別不明</td><td>分別篩選出「男性、女性、無性別」的寶可夢。</td></tr>
+                <tr><td>異色</td><td>篩選出所有「異色（色違）」寶可夢。</td></tr>
+                <tr><td>亮晶晶</td><td>篩選出所有透過交易獲得的「亮晶晶」寶可夢。</td></tr>
+                <tr><td>傳說的寶可夢</td><td>篩選出所有「神獸」寶可夢。</td></tr>
+                <tr><td>究極異獸</td><td>篩選出所有「究極異獸」寶可夢。</td></tr>
+                <tr><td>幻</td><td>篩選出所有「幻之寶可夢」。</td></tr>
+                <tr><td>特殊</td><td>篩選出所有穿戴特殊裝扮的寶可夢（例如：戴帽子的皮卡丘）。</td></tr>
+                <tr><td>孵化</td><td>篩選出所有從蛋中孵化出來的寶可夢。</td></tr>
+                <tr><td>只限蛋</td><td>篩選出所有「寶寶型態」的寶可夢。</td></tr>
+                <tr><td>進化</td><td>篩選出所有目前「可以進化」的寶可夢。</td></tr>
+                <tr><td>超級進化</td><td>篩選出所有目前「可以超級進化」的寶可夢。</td></tr>
+                <tr><td>交換進化</td><td>篩選出所有可透過交換免除糖果即可進化的寶可夢。</td></tr>
+                <tr><td>道具</td><td>篩選出所有目前可以使用進化道具進化的寶可夢。</td></tr>
+                <tr><td>未登錄</td><td>篩選出所有進化後可以解鎖圖鑑的宝可梦。</td></tr>
+                <tr><td>糖果XL</td><td>篩選出所有使用過 XL 糖果升等的寶可夢。</td></tr>
+                <tr><td>交換</td><td>篩選出所有透過「交換得到」的寶可夢。</td></tr>
+                <tr><td>調查 / Snapshot / 火箭隊</td><td>篩選從「田野調查」、「AR照亂入」或「擊敗火箭隊」獲得的獎勵寶可夢（僅限 2020 年 11 月後）。</td></tr>
+                <tr><td>淨化 / 暗影</td><td>分別篩選出「淨化」或「暗影」寶可夢。</td></tr>
+                <tr><td>防禦者</td><td>篩選出目前正在「佔領道館中」的寶可夢。</td></tr>
+                <tr><td>@天氣</td><td>篩選出當下招式受到「天氣加成」的寶可夢。</td></tr>
+                <tr><td>@特別</td><td>篩選出擁有「絕版招式」的寶可夢。</td></tr>
+            </tbody>
+        </table>
 
-        <h2>10 公里蛋</h2>
-        <ul class="egg-list-flex" id="egg-list-10km"></ul>
-        
-        <h2>10 公里蛋 (冒險同步獎勵)</h2>
-        <p>此類蛋可從每週的「時時刻刻冒險」獎勵中獲得。</p>
-        <ul class="egg-list-flex" id="egg-list-10km-sync"></ul>
-        <hr/>
-        
-        <h2>12 公里蛋</h2>
-        <ul class="egg-list-flex" id="egg-list-12km"></ul>
+        <h3>2. 名稱、編號及地區</h3>
+        <p><b>名字/暱稱：</b>可直接輸入寶可夢名字或暱稱，例如 <code>百變怪</code>。使用 <code>+</code> 可搜尋整個進化鏈，例如 <code>+快龍</code> 會顯示迷你龍、哈克龍及快龍。</p>
+        <p><b>編號：</b>可輸入全國圖鑑編號。支援範圍搜尋，例如 <code>1-151</code> 代表第一代所有寶可夢。</p>
+        <p><b>地區：</b>可直接輸入地區名稱，例如 <code>關都</code>, <code>城都</code>, <code>豐緣</code> 等。</p>
+
+        <h3>3. 捕捉時間與距離</h3>
+        <p><b>日數：</b>篩選特定時間內捕捉的寶可夢。例如 <code>日數0</code> 是24小時內，<code>日數365-</code> 是超過一年前。</p>
+        <p><b>年：</b>篩選特定年份捕捉的寶可夢，例如 <code>年2016</code>。</p>
+        <p><b>距離：</b>篩選與目前位置相距特定距離的寶可夢。例如 <code>距離100-</code> 代表超過100公里外。</p>
+
+        <h3>4. 屬性與招式</h3>
+        <p><b>屬性：</b>輸入屬性名稱，例如 <code>冰</code>。</p>
+        <p><b>招式：</b>使用 <code>@</code> 前綴。例如 <code>@破壞光線</code> 或 <code>@火</code>。<code>@1</code> 代表普通招式，<code>@2</code> 和 <code>@3</code> 分別代表第一和第二特殊招式。</p>
+
+        <h3>5. CP、HP、IV 及夥伴/超級等級</h3>
+        <p><b>CP/HP：</b>支援範圍搜尋，例如 <code>cp2000-3000</code> 或 <code>hp200-</code>。</p>
+        <p><b>IV 星級：</b>使用 <code>0*</code> 到 <code>4*</code> 來篩選隊長評價星等。</p>
+        <p><b>IV 細項：</b>可篩選攻擊、防禦、HP 的 IV 值，例如 <code>4攻擊&4防禦&4HP</code> 代表完美IV。數字0-4對應IV值0, 1-5, 6-10, 11-14, 15。</p>
+        <p><b>夥伴/超級等級：</b>使用 <code>夥伴0-5</code> 或 <code>超級1-3</code> 來篩選。</p>
+
+        <h3>6. 邏輯運算子</h3>
+        <p><b>或者 (OR)：</b>使用 <code>,</code> 或 <code>;</code>。例如 <code>快龍,班基拉斯</code>。</p>
+        <p><b>而且 (AND)：</b>使用 <code>&</code> 或 <code>|</code>。例如 <code>異色&傳說的寶可夢</code>。</p>
+        <p><b>反向 (NOT)：</b>使用 <code>!</code>。例如 <code>!亮晶晶</code> 會顯示所有非亮晶晶的寶可夢。</p>
+
+        <hr>
+
+        <h2>朋友搜尋篩選條件</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>搜尋字詞</th>
+                    <th>功能</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>互動</td><td>篩選出今天雙方尚未互動的朋友。</td></tr>
+                <tr><td>亮晶晶</td><td>篩選出目前是「亮晶晶好朋友」狀態的朋友。</td></tr>
+                <tr><td>友誼等級0-4</td><td>篩選特定友誼等級的朋友。例如 <code>友誼等級4</code>。</td></tr>
+                <tr><td>暱稱</td><td>搜尋朋友的暱稱。</td></tr>
+            </tbody>
+        </table>
     </div>
 </div>
+        </div>
 
 <script src="precomputed_pokemon_cp.js"></script>
 <script src="pokemon_translation_map.js"></script>
@@ -649,6 +849,10 @@
         let idAppInitialized = false;
         let researchAppInitialized = false;
         let eggsAppInitialized = false;
+        // ▼▼▼ 新增的狀態旗標 ▼▼▼
+        let levelUpAppInitialized = false; 
+        let searchFiltersAppInitialized = false;
+        // ▲▲▲ 新增的狀態旗標 ▲▲▲
 
         tabButtons.forEach(button => {
             button.addEventListener('click', () => {
@@ -674,6 +878,14 @@
                 } else if (targetAppId === 'eggs-app' && !eggsAppInitialized) {
                     initializeEggsApp();
                     eggsAppInitialized = true;
+                } 
+                else if (targetAppId === 'level-up-app' && !levelUpAppInitialized) {
+                    initializeLevelUpApp();
+                    levelUpAppInitialized = true;
+                }
+                else if (targetAppId === 'search-filters-app' && !searchFiltersAppInitialized) {
+                    initializeSearchFiltersApp();
+                    searchFiltersAppInitialized = true;
                 }
             });
         });
@@ -711,6 +923,7 @@
                             <h2>${pokemon.name}</h2>
                             <div class="id">#${pokemon.id}</div>
                             <div class="cp-container">
+                                <div class="cp"><span>Lv15 100% </span>${pokemon.cp15}</div>
                                 <div class="cp"><span>Lv20 100% </span>${pokemon.cp20}</div>
                                 <div class="cp"><span>Lv25 100% </span>${pokemon.cp25}</div>
                             </div>
@@ -728,7 +941,7 @@
                     const pokemonName = card.dataset.name;
                     const pokemonId = card.dataset.id;
                     const isQueryNumeric = !isNaN(query);
-                    let isMatch = !query || (isQueryNumeric ? pokemonId.startsWith(query) : pokemonName.includes(query));
+                    let isMatch = !query || (isQueryNumeric ? pokemonId===(query) : pokemonName.includes(query));
                     card.style.display = isMatch ? 'flex' : 'none';
                     if (isMatch) foundMatch = true;
                 });
@@ -745,30 +958,30 @@
             createAllPokemonCards();
         }
 
-// =======================
-        // App 2: 寶可夢編號篩選器
-        // =======================
-        function initializeIdSelector() {
-            const pokemonContainer = document.getElementById('pokemon-container');
-            if (!pokemonContainer || pokemonContainer.innerHTML !== '') return; // 防止重複初始化
+    // =======================
+        // App 2: 寶可夢編號篩選器
+        // =======================
+        function initializeIdSelector() {
+            const pokemonContainer = document.getElementById('pokemon-container');
+            if (!pokemonContainer || pokemonContainer.innerHTML !== '') return; // 防止重複初始化
 
-            const POKEMON_COUNT = 1025;
-            const selectedIdsOutput = document.getElementById('selected-ids');
-            const searchInput = document.getElementById('idSearchInput');
-            const startersButton = document.getElementById('select-starters');
-            const pseudosButton = document.getElementById('select-pseudos');
-            const evolvedButton = document.getElementById('select-evolved');
-            const clearButton = document.getElementById('clear-all');
-            const includeStarterEvolutionsCheckbox = document.getElementById('include-starter-evolutions');
-            const includePseudoEvolutionsCheckbox = document.getElementById('include-pseudo-evolutions');
-            const selectAllShownButton = document.getElementById('select-all-shown');
-            const showAllButton = document.getElementById('show-all');
-            const megaButton = document.getElementById('select-mega');
-            const includeMegaEvolutionsCheckbox = document.getElementById('include-mega-evolutions');
-            const copyButton = document.getElementById('copy-button');
-            
-            let selectedPokemon = new Set();
-            const STARTER_FAMILIES_IDS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 152, 153, 154, 155, 156, 157, 158, 159, 160, 252, 253, 254, 255, 256, 257, 258, 259, 260, 387, 388, 389, 390, 391, 392, 393, 394, 395, 495, 496, 497, 498, 499, 500, 501, 502, 503, 650, 651, 652, 653, 654, 655, 656, 657, 658, 722, 723, 724, 725, 726, 727, 728, 729, 730, 810, 811, 812, 813, 814, 815, 816, 817, 818, 906, 907, 908, 909, 910, 911, 912, 913, 914];
+            const POKEMON_COUNT = 1025;
+            const selectedIdsOutput = document.getElementById('selected-ids');
+            const searchInput = document.getElementById('idSearchInput');
+            const startersButton = document.getElementById('select-starters');
+            const pseudosButton = document.getElementById('select-pseudos');
+            const evolvedButton = document.getElementById('select-evolved');
+            const clearButton = document.getElementById('clear-all');
+            const includeStarterEvolutionsCheckbox = document.getElementById('include-starter-evolutions');
+            const includePseudoEvolutionsCheckbox = document.getElementById('include-pseudo-evolutions');
+            const selectAllShownButton = document.getElementById('select-all-shown');
+            const showAllButton = document.getElementById('show-all');
+            const megaButton = document.getElementById('select-mega');
+            const includeMegaEvolutionsCheckbox = document.getElementById('include-mega-evolutions');
+            const copyButton = document.getElementById('copy-button');
+            
+            let selectedPokemon = new Set();
+            const STARTER_FAMILIES_IDS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 152, 153, 154, 155, 156, 157, 158, 159, 160, 252, 253, 254, 255, 256, 257, 258, 259, 260, 387, 388, 389, 390, 391, 392, 393, 394, 395, 495, 496, 497, 498, 499, 500, 501, 502, 503, 650, 651, 652, 653, 654, 655, 656, 657, 658, 722, 723, 724, 725, 726, 727, 728, 729, 730, 810, 811, 812, 813, 814, 815, 816, 817, 818, 906, 907, 908, 909, 910, 911, 912, 913, 914];
             const STARTERS_BASE_IDS = [1, 4, 7, 152, 155, 158, 252, 255, 258, 387, 390, 393, 495, 498, 501, 650, 653, 656, 722, 725, 728, 810, 813, 816, 906, 909, 912];
             const PSEUDO_FAMILIES_IDS = [147, 148, 149, 246, 247, 248, 371, 372, 373, 374, 375, 376, 443, 444, 445, 633, 634, 635, 704, 705, 706, 782, 783, 784, 885, 886, 887, 996, 997, 998];
             const PSEUDOS_BASE_IDS = [147, 246, 371, 374, 443, 633, 704, 782, 885, 996];
@@ -776,129 +989,129 @@
             const MEGA_EVO_BASE_IDS = [3, 6, 9, 15, 18, 65, 80, 94, 115, 127, 130, 142, 150, 181, 208, 212, 214, 229, 248, 254, 257, 260, 282, 302, 303, 306, 308, 310, 319, 323, 334, 354, 359, 362, 373, 376, 380, 381, 382, 383, 384, 428, 445, 448, 460, 475, 531, 719].sort((a, b) => a - b);
             const BASE_FORM_IDS = new Set([1, 4, 7, 10, 13, 16, 19, 21, 23, 25, 27, 29, 32, 35, 37, 39, 41, 43, 46, 48, 50, 52, 54, 56, 58, 60, 63, 66, 69, 72, 74, 77, 79, 81, 83, 84, 86, 88, 90, 92, 95, 96, 98, 100, 102, 104, 106, 107, 108, 109, 111, 113, 114, 115, 116, 118, 120, 122, 123, 124, 125, 126, 127, 128, 129, 131, 132, 133, 137, 138, 140, 142, 143, 144, 145, 146, 147, 150, 151, 152, 155, 158, 161, 163, 165, 167, 170, 172, 173, 174, 175, 177, 179, 183, 185, 187, 190, 191, 193, 194, 198, 200, 201, 202, 203, 204, 206, 207, 209, 211, 213, 214, 215, 216, 218, 220, 222, 223, 225, 226, 227, 228, 231, 234, 235, 236, 238, 239, 240, 241, 242, 243, 244, 245, 246, 249, 250, 251, 252, 255, 258, 261, 263, 265, 270, 273, 276, 278, 280, 283, 285, 287, 290, 293, 296, 298, 299, 300, 302, 303, 304, 307, 309, 311, 312, 313, 314, 315, 316, 318, 320, 322, 324, 325, 327, 328, 331, 333, 335, 336, 337, 338, 339, 341, 343, 345, 347, 349, 351, 352, 353, 355, 357, 358, 359, 360, 361, 363, 366, 369, 370, 371, 374, 377, 378, 379, 380, 381, 382, 383, 384, 385, 386, 387, 390, 393, 396, 399, 401, 403, 406, 408, 410, 412, 415, 417, 418, 420, 422, 424, 425, 427, 431, 433, 434, 436, 438, 439, 440, 441, 442, 443, 446, 447, 449, 451, 453, 455, 456, 458, 459, 480, 481, 482, 483, 484, 485, 486, 487, 488, 489, 491, 492, 493, 494, 495, 498, 501, 504, 506, 509, 511, 513, 515, 517, 519, 522, 524, 527, 529, 531, 532, 535, 538, 539, 540, 543, 546, 548, 550, 551, 554, 556, 557, 559, 561, 562, 564, 566, 568, 570, 572, 574, 577, 580, 582, 585, 587, 588, 590, 592, 594, 595, 597, 599, 602, 605, 607, 610, 613, 615, 616, 618, 619, 621, 622, 624, 626, 627, 629, 631, 632, 633, 636, 638, 639, 640, 641, 642, 643, 644, 645, 646, 647, 648, 649, 650, 653, 656, 659, 661, 664, 667, 669, 672, 674, 676, 677, 679, 682, 684, 686, 688, 690, 692, 694, 696, 698, 701, 702, 703, 704, 707, 708, 710, 712, 714, 716, 717, 718, 719, 720, 721, 722, 725, 728, 731, 734, 736, 739, 741, 742, 744, 746, 747, 749, 751, 753, 755, 757, 759, 761, 764, 765, 766, 767, 769, 771, 772, 773, 774, 775, 776, 777, 778, 779, 781, 782, 785, 786, 787, 788, 789, 791, 792, 793, 794, 795, 796, 797, 798, 799, 800, 801, 802, 803, 804, 805, 806, 807, 808, 809, 810, 813, 816, 819, 821, 824, 827, 829, 831, 833, 835, 837, 840, 843, 845, 846, 848, 850, 852, 854, 856, 859, 862, 863, 864, 865, 866, 867, 868, 869, 870, 871, 872, 874, 875, 876, 877, 878, 880, 881, 882, 883, 884, 885, 888, 889, 890, 891, 892, 893, 894, 895, 896, 897, 898, 899, 900, 901, 902, 903, 904, 905, 906, 909, 912, 915, 917, 919, 921, 924, 926, 928, 931, 932, 934, 935, 938, 940, 942, 944, 946, 948, 950, 951, 953, 955, 957, 960, 962, 965, 967, 968, 969, 971, 973, 976, 978, 980, 981, 982, 983, 984, 985, 986, 987, 988, 989, 990, 991, 992, 993, 994, 995, 996, 999, 1001, 1002, 1003, 1004, 1005, 1006, 1007, 1008, 1009, 1010, 1011, 1012, 1014, 1016, 1017, 1018, 1020, 1021, 1022, 1023, 1024, 1025]);
 
-            const fragment = document.createDocumentFragment();
-            for (let i = 1; i <= POKEMON_COUNT; i++) {
-                const pokemonId = i;
-                const pokemonName = POKEMON_NAMES[pokemonId - 1] || `Pokemon #${pokemonId}`;
-                const card = document.createElement('div');
-                card.className = 'pokemon-card';
-                card.dataset.id = pokemonId;
-                card.dataset.name = pokemonName;
-                card.innerHTML = `<img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemonId}.png" alt="${pokemonName}" loading="lazy"><span class="pokemon-name">${pokemonName}</span>`;
-                card.addEventListener('click', handlePokemonClick);
-                fragment.appendChild(card);
-            }
-            pokemonContainer.appendChild(fragment);
-            
-            // --- Helper Functions ---
-            function updateOutput() {
-                const sortedIds = Array.from(selectedPokemon).sort((a, b) => a - b);
-                selectedIdsOutput.textContent = sortedIds.join(',');
-            }
+            const fragment = document.createDocumentFragment();
+            for (let i = 1; i <= POKEMON_COUNT; i++) {
+                const pokemonId = i;
+                const pokemonName = POKEMON_NAMES[pokemonId - 1] || `Pokemon #${pokemonId}`;
+                const card = document.createElement('div');
+                card.className = 'pokemon-card';
+                card.dataset.id = pokemonId;
+                card.dataset.name = pokemonName;
+                card.innerHTML = `<img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemonId}.png" alt="${pokemonName}" loading="lazy"><span class="pokemon-name">${pokemonName}</span>`;
+                card.addEventListener('click', handlePokemonClick);
+                fragment.appendChild(card);
+            }
+            pokemonContainer.appendChild(fragment);
+            
+            // --- Helper Functions ---
+            function updateOutput() {
+                const sortedIds = Array.from(selectedPokemon).sort((a, b) => a - b);
+                selectedIdsOutput.textContent = sortedIds.join(',');
+            }
 
-            function handlePokemonClick(event) {
-                const card = event.currentTarget;
-                const pokemonId = parseInt(card.dataset.id, 10);
-                if (selectedPokemon.has(pokemonId)) {
-                    selectedPokemon.delete(pokemonId);
-                    card.classList.remove('selected');
-                } else {
-                    selectedPokemon.add(pokemonId);
-                    card.classList.add('selected');
-                }
-                updateOutput();
-            }
-            
-            function handleSearch() {
-                selectAllShownButton.style.display = 'none';
-                const rawInput = searchInput.value.toLowerCase();
-                const searchTerms = rawInput.split(',').map(term => term.trim()).filter(term => term.length > 0);
-                const allPokemonCards = pokemonContainer.querySelectorAll('.pokemon-card');
-                
-                allPokemonCards.forEach(card => {
-                    if (searchTerms.length === 0) {
-                        card.style.display = 'flex';
-                        return;
-                    }
-                    const pokemonId = card.dataset.id;
-                    const pokemonName = card.dataset.name.toLowerCase();
-                    const isMatch = searchTerms.some(term => isNaN(term) ? pokemonName.includes(term) : pokemonId.startsWith(term));
-                    card.style.display = isMatch ? 'flex' : 'none';
-                });
-            }
+            function handlePokemonClick(event) {
+                const card = event.currentTarget;
+                const pokemonId = parseInt(card.dataset.id, 10);
+                if (selectedPokemon.has(pokemonId)) {
+                    selectedPokemon.delete(pokemonId);
+                    card.classList.remove('selected');
+                } else {
+                    selectedPokemon.add(pokemonId);
+                    card.classList.add('selected');
+                }
+                updateOutput();
+            }
+            
+            function handleSearch() {
+                selectAllShownButton.style.display = 'none';
+                const rawInput = searchInput.value.toLowerCase();
+                const searchTerms = rawInput.split(',').map(term => term.trim()).filter(term => term.length > 0);
+                const allPokemonCards = pokemonContainer.querySelectorAll('.pokemon-card');
+                
+                allPokemonCards.forEach(card => {
+                    if (searchTerms.length === 0) {
+                        card.style.display = 'flex';
+                        return;
+                    }
+                    const pokemonId = card.dataset.id;
+                    const pokemonName = card.dataset.name.toLowerCase();
+                    const isMatch = searchTerms.some(term => isNaN(term) ? pokemonName.includes(term) : pokemonId === term);
+                    card.style.display = isMatch ? 'flex' : 'none';
+                });
+            }
 
-            function batchSelect(idList) {
-                idList.forEach(id => {
-                    selectedPokemon.add(id);
-                    const cardElement = document.querySelector(`#id-selector-app .pokemon-card[data-id='${id}']`);
-                    if (cardElement) cardElement.classList.add('selected');
-                });
-                updateOutput();
-            }
+            function batchSelect(idList) {
+                idList.forEach(id => {
+                    selectedPokemon.add(id);
+                    const cardElement = document.querySelector(`#id-selector-app .pokemon-card[data-id='${id}']`);
+                    if (cardElement) cardElement.classList.add('selected');
+                });
+                updateOutput();
+            }
 
-            function selectEvolvedForms() {
-                const evolvedIds = [];
-                for (let i = 1; i <= POKEMON_COUNT; i++) {
-                    if (!BASE_FORM_IDS.has(i)) {
-                        evolvedIds.push(i);
-                    }
-                }
-                batchSelect(evolvedIds);
-            }
+            function selectEvolvedForms() {
+                const evolvedIds = [];
+                for (let i = 1; i <= POKEMON_COUNT; i++) {
+                    if (!BASE_FORM_IDS.has(i)) {
+                        evolvedIds.push(i);
+                    }
+                }
+                batchSelect(evolvedIds);
+            }
 
-            function clearAllSelections() {
-                selectedPokemon.clear();
-                document.querySelectorAll('#id-selector-app .pokemon-card.selected').forEach(card => card.classList.remove('selected'));
-                updateOutput();
-            }
+            function clearAllSelections() {
+                selectedPokemon.clear();
+                document.querySelectorAll('#id-selector-app .pokemon-card.selected').forEach(card => card.classList.remove('selected'));
+                updateOutput();
+            }
 
-            function filterAndDisplay(idsToFilter) {
-                searchInput.value = '';
-                const allPokemonCards = pokemonContainer.querySelectorAll('.pokemon-card');
-                allPokemonCards.forEach(card => {
-                    const pokemonId = parseInt(card.dataset.id, 10);
-                    card.style.display = idsToFilter.includes(pokemonId) ? 'flex' : 'none';
-                });
-                selectAllShownButton.style.display = 'inline-block';
-            }
-            
-            // --- Event Listeners ---
-            searchInput.addEventListener('input', handleSearch);
-            startersButton.addEventListener('click', () => filterAndDisplay(includeStarterEvolutionsCheckbox.checked ? STARTER_FAMILIES_IDS : STARTERS_BASE_IDS));
-            pseudosButton.addEventListener('click', () => filterAndDisplay(includePseudoEvolutionsCheckbox.checked ? PSEUDO_FAMILIES_IDS : PSEUDOS_BASE_IDS));
-            megaButton.addEventListener('click', () => filterAndDisplay(includeMegaEvolutionsCheckbox.checked ? MEGA_EVO_FAMILY_IDS : MEGA_EVO_BASE_IDS));
-            evolvedButton.addEventListener('click', selectEvolvedForms);
-            clearButton.addEventListener('click', clearAllSelections);
-            
-            showAllButton.addEventListener('click', () => {
-                searchInput.value = '';
+            function filterAndDisplay(idsToFilter) {
+                searchInput.value = '';
+                const allPokemonCards = pokemonContainer.querySelectorAll('.pokemon-card');
+                allPokemonCards.forEach(card => {
+                    const pokemonId = parseInt(card.dataset.id, 10);
+                    card.style.display = idsToFilter.includes(pokemonId) ? 'flex' : 'none';
+                });
+                selectAllShownButton.style.display = 'inline-block';
+            }
+            
+            // --- Event Listeners ---
+            searchInput.addEventListener('input', handleSearch);
+            startersButton.addEventListener('click', () => filterAndDisplay(includeStarterEvolutionsCheckbox.checked ? STARTER_FAMILIES_IDS : STARTERS_BASE_IDS));
+            pseudosButton.addEventListener('click', () => filterAndDisplay(includePseudoEvolutionsCheckbox.checked ? PSEUDO_FAMILIES_IDS : PSEUDOS_BASE_IDS));
+            megaButton.addEventListener('click', () => filterAndDisplay(includeMegaEvolutionsCheckbox.checked ? MEGA_EVO_FAMILY_IDS : MEGA_EVO_BASE_IDS));
+            evolvedButton.addEventListener('click', selectEvolvedForms);
+            clearButton.addEventListener('click', clearAllSelections);
+            
+            showAllButton.addEventListener('click', () => {
+                searchInput.value = '';
                 handleSearch();
-            });
+            });
 
-            copyButton.addEventListener('click', () => {
-                const textToCopy = selectedIdsOutput.textContent;
-                if (!textToCopy) return;
-                navigator.clipboard.writeText(textToCopy).then(() => {
-                    copyButton.textContent = '已複製!';
-                    copyButton.classList.add('copied');
-                    setTimeout(() => { 
-                        copyButton.textContent = '複製'; 
-                        copyButton.classList.remove('copied');
-                    }, 2000);
-                });
-            });
+            copyButton.addEventListener('click', () => {
+                const textToCopy = selectedIdsOutput.textContent;
+                if (!textToCopy) return;
+                navigator.clipboard.writeText(textToCopy).then(() => {
+                    copyButton.textContent = '已複製!';
+                    copyButton.classList.add('copied');
+                    setTimeout(() => { 
+                        copyButton.textContent = '複製'; 
+                        copyButton.classList.remove('copied');
+                    }, 2000);
+                });
+            });
 
-            selectAllShownButton.addEventListener('click', () => {
-                const visibleCards = document.querySelectorAll('#id-selector-app .pokemon-card');
-                const idsToSelect = [];
-                visibleCards.forEach(card => {
-                    if (card.style.display !== 'none') {
-                        idsToSelect.push(parseInt(card.dataset.id, 10));
-                    }
-                });
-                batchSelect(idsToSelect);
-            });
-        }
+            selectAllShownButton.addEventListener('click', () => {
+                const visibleCards = document.querySelectorAll('#id-selector-app .pokemon-card');
+                const idsToSelect = [];
+                visibleCards.forEach(card => {
+                    if (card.style.display !== 'none') {
+                        idsToSelect.push(parseInt(card.dataset.id, 10));
+                    }
+                });
+                batchSelect(idsToSelect);
+            });
+        }
 
         // =======================
         // App 3: 田野調查任務
@@ -1024,9 +1237,9 @@
             
             function setupFilters() {
                  toggles.forEach(toggle => {
-                     toggle.addEventListener('change', (event) => {
-                         container.classList.toggle('hide-items', event.target.id === 'less-option');
-                     });
+                      toggle.addEventListener('change', (event) => {
+                          container.classList.toggle('hide-items', event.target.id === 'less-option');
+                      });
                  });
                  const initiallyChecked = researchAppContainer.querySelector('input[name="reward-toggle"]:checked');
                  if (initiallyChecked) {
@@ -1054,58 +1267,76 @@
         // =======================
         // App 4: 孵蛋列表
         // =======================
-function initializeEggsApp() {
-    // 檢查第一個容器，防止重複初始化
-    const checkContainer = document.getElementById('egg-list-2km');
-    if (!checkContainer || checkContainer.innerHTML !== '') return;
+    function initializeEggsApp() {
+        // 檢查第一個容器，防止重複初始化
+        const checkContainer = document.getElementById('egg-list-2km');
+        if (!checkContainer || checkContainer.innerHTML !== '') return;
 
-    fetch('data.json')
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            return response.json();
-        })
-        .then(allPokemon => {
-            allPokemon.forEach(pokemon => {
-                // --- 【修改點】動態決定容器 ID ---
-                let containerId = `egg-list-${pokemon.eggDistance}km`;
-                
-                if (pokemon.source === 'adventure_sync') {
-                    containerId += '-sync';
-                } else if (pokemon.source === 'route_gift') {
-                    containerId += '-route';
+        fetch('data.json')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
                 }
-                
-                const container = document.getElementById(containerId);
-                // --- 修改結束 ---
+                return response.json();
+            })
+            .then(allPokemon => {
+                allPokemon.forEach(pokemon => {
+                    // --- 【修改點】動態決定容器 ID ---
+                    let containerId = `egg-list-${pokemon.eggDistance}km`;
+                    
+                    if (pokemon.source === 'adventure_sync') {
+                        containerId += '-sync';
+                    } else if (pokemon.source === 'route_gift') {
+                        containerId += '-route';
+                    }
+                    
+                    const container = document.getElementById(containerId);
+                    // --- 修改結束 ---
 
-                if (!container) {
-                    console.warn(`找不到 ID 為 ${containerId} 的容器，跳過寶可夢: ${pokemon.name}`);
-                    return; // 如果找不到對應的容器，就跳過此寶可夢
-                }
-                
-                const listItem = document.createElement('li');
-                listItem.className = 'egg-list-item';
-                
-                const shinyIconHtml = pokemon.isShiny ? `<img class="shiny-icon" src="https://leekduck.com/assets/img/icons/shiny-icon.png" alt="shiny"/>` : '';
-                
-                listItem.innerHTML = `
-                    <div class="egg-list-img egg${pokemon.eggDistance}km">
-                        <img src="${pokemon.imageUrl}" alt="${pokemon.name}" loading="lazy"/>
-                    </div>
-                    ${shinyIconHtml}
-                    <span class="hatch-pkmn">${pokemon.name}</span><br/>
-                    <div class="font-size-smaller">
-                        <span class="font-size-x-small">CP </span>${pokemon.cpRange || 'N/A'}
-                    </div>`;
-                container.appendChild(listItem);
-            });
-        })
-        .catch(error => console.error('Error loading data.json:', error));
-}
+                    if (!container) {
+                        console.warn(`找不到 ID 為 ${containerId} 的容器，跳過寶可夢: ${pokemon.name}`);
+                        return; // 如果找不到對應的容器，就跳過此寶可夢
+                    }
+                    
+                    const listItem = document.createElement('li');
+                    listItem.className = 'egg-list-item';
+                    
+                    const shinyIconHtml = pokemon.isShiny ? `<img class="shiny-icon" src="https://leekduck.com/assets/img/icons/shiny-icon.png" alt="shiny"/>` : '';
+                    
+                    listItem.innerHTML = `
+                        <div class="egg-list-img egg${pokemon.eggDistance}km">
+                            <img src="${pokemon.imageUrl}" alt="${pokemon.name}" loading="lazy"/>
+                        </div>
+                        ${shinyIconHtml}
+                        <span class="hatch-pkmn">${pokemon.name}</span><br/>
+                        <div class="font-size-smaller">
+                            <span class="font-size-x-small">CP </span>${pokemon.cpRange || 'N/A'}
+                        </div>`;
+                    container.appendChild(listItem);
+                });
+            })
+            .catch(error => console.error('Error loading data.json:', error));
+    }
+    
+    // ▼▼▼ 新增的初始化函式 ▼▼▼
+    // =======================
+    // App 5: 升級條件
+    // =======================
+    function initializeLevelUpApp() {
+        // 內容是靜態 HTML，不需要透過 JavaScript 動態生成。
+        // 這個函式保留是為了與現有程式碼結構保持一致。
+        console.log("升級條件 App 已載入。");
+    }
+    // ▲▲▲ 新增的初始化函式 ▲▲▲
 
     });
+    // =======================
+// App 6: 搜尋篩選指令
+// =======================
+function initializeSearchFiltersApp() {
+    // 內容是靜態 HTML，不需要透過 JavaScript 動態生成。
+    console.log("搜尋篩選指令 App 已載入。");
+}
 </script>
 </body>
 </html>
