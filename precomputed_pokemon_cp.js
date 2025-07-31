@@ -666,14 +666,14 @@ const POKEMON_CP_DATA =[
   },
   {
     "id": 83,
-    "name": "Farfetch’d (伽勒爾形態)",
+    "name": "大蔥鴨 (伽勒爾形態)",
     "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/83.png",
     "cp20": 956,
     "cp25": 1196
   },
   {
     "id": 83,
-    "name": "Farfetch’d",
+    "name": "大蔥鴨",
     "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/83.png",
     "cp20": 706,
     "cp25": 883
@@ -4978,7 +4978,7 @@ const POKEMON_CP_DATA =[
   },
   {
     "id": 669,
-    "name": "Flabebe",
+    "name": "花蓓蓓",
     "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/669.png",
     "cp20": 607,
     "cp25": 759
@@ -6462,7 +6462,7 @@ const POKEMON_CP_DATA =[
   },
   {
     "id": 865,
-    "name": "Sirfetch’d",
+    "name": "蔥遊兵",
     "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/865.png",
     "cp20": 1706,
     "cp25": 2132

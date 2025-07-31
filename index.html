@@ -16,7 +16,7 @@
 
         .main-container {
             width: 100%;
-            max-width: 1200px; /* 為了容納編號篩選器，將最大寬度調大 */
+            max-width: 1200px;
             margin: 0 auto;
         }
 
@@ -24,6 +24,7 @@
         .app-nav {
             display: flex;
             justify-content: center;
+            flex-wrap: wrap; /* 在小螢幕上換行 */
             margin-bottom: 25px;
             border-bottom: 2px solid #ccd0d5;
         }
@@ -43,7 +44,7 @@
         .tab-button::after {
             content: '';
             position: absolute;
-            bottom: -2px; /* 緊貼父容器的 border-bottom */
+            bottom: -2px;
             left: 0;
             width: 100%;
             height: 2px;
@@ -101,7 +102,7 @@
             width: 100%;
             margin-bottom: 20px;
         }
-        #cp-checker-app #cpSearchInput { /* ID 修改 */
+        #cp-checker-app #cpSearchInput {
             flex-grow: 1;
             padding: 10px 15px;
             font-size: 16px;
@@ -119,7 +120,7 @@
             margin-bottom: 20px;
             font-style: italic;
         }
-        #cp-checker-app #resultsContainer { /* ID 修改 */
+        #cp-checker-app #resultsContainer {
             margin-top: 20px;
         }
         #cp-checker-app .pokemon-card {
@@ -215,7 +216,7 @@
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
-        #id-selector-app .pokemon-card {
+        #id-selector-app .pokemon-card { /*Scoped selector*/
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -302,14 +303,13 @@
             padding: 12px 15px;
         }
         #id-selector-app .search-container {
-            /* 由於現在頁面可以滾動，固定搜尋框是個好主意 */
             position: sticky;
             top: 0;
             z-index: 1000;
             background-color: #f0f2f5;
             padding: 15px 0;
         }
-        #id-selector-app #idSearchInput { /* ID 修改 */
+        #id-selector-app #idSearchInput {
             width: 90%;
             max-width: 600px;
             padding: 12px 20px;
@@ -351,6 +351,145 @@
             background-color: #28a745;
             cursor: default;
         }
+
+        /* --- ================================ --- */
+        /* --- 3. 田野調查任務 (App 3) 樣式 --- */
+        /* --- ================================ --- */
+        #research-app main { padding: 20px; max-width: 1200px; margin: auto; }
+        #research-app header { text-align: center; padding-top: 20px; color: #3b4146; }
+        #research-app .tabs { display: flex; position: relative; background-color: #fff; box-shadow: 0 0 1px 0 rgba(24, 94, 224, 0.15), 0 6px 12px 0 rgba(24, 94, 224, 0.15); padding: 0.35rem; border-radius: 99px; width: fit-content; margin: 20px auto; }
+        #research-app .tabs * { z-index: 2; }
+        #research-app .tabs input[type="radio"] { display: none; }
+        #research-app .tab { display: flex; align-items: center; justify-content: center; height: 40px; width: 120px; font-size: 1rem; font-weight: 500; border-radius: 99px; cursor: pointer; transition: color 0.15s ease-in; color: #3b4146; }
+        #research-app input[type="radio"]:checked + .tab { color: #fff; }
+        #research-app input#less-option:checked ~ .glider { transform: translateX(0); }
+        #research-app input#all-option:checked ~ .glider { transform: translateX(100%); }
+        #research-app .glider { position: absolute; display: flex; height: 40px; width: 120px; background-color: #27ae60; z-index: 1; border-radius: 99px; transition: 0.25s ease-out; }
+        #research-app #research-container { display: flex; justify-content: center; align-items: flex-start; gap: 20px; }
+        #research-app .research-column { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 20px; }
+        #research-app .task-category h2 { background-color: var(--category-main-color, #27ae60); font-size: 1.1em; padding: 10px 15px; color: white; border-radius: 8px; margin: 0 0 10px 0; }
+        #research-app .task-category { background-color: var(--category-bg-color, #e4f3e9); padding: 15px; border-radius: 12px; }
+        #research-app .task-item { background: #fff; border-radius: 8px; margin-bottom: 8px; box-shadow: 0 1px 2px rgba(0,0,0,0.07); }
+        #research-app .task-header { display: flex; justify-content: space-between; align-items: center; padding: 12px 15px; cursor: pointer; }
+        #research-app .task-text { font-weight: 600; color: #3b4146; padding-right: 15px; }
+        #research-app .reward-preview { display: flex; align-items: center; }
+        #research-app .reward-preview .reward-bubble { width: 42px; height: 42px; border: 2px solid white; box-shadow: 0 1px 3px rgba(0,0,0,0.2); background-color: #e9ecef; border-radius: 50%; display: flex; align-items: center; justify-content: center; position: relative; flex-shrink: 0; }
+        #research-app .reward-preview .reward-bubble:not(:first-child) { margin-left: -5px; }
+        #research-app .reward-preview img { max-width: 80%; max-height: 80%; object-fit: contain; }
+        #research-app .reward-preview .shiny-icon { width: 20px; position: absolute; top: -4px; right: -7px; filter: drop-shadow(0 0 1px black); }
+        #research-app .reward-preview .quantity { position: absolute; bottom: -5px; right: -5px; background-color: #555; color: white; font-size: 0.7em; font-weight: bold; padding: 1px 5px; border-radius: 10px; border: 1px solid white; }
+        #research-app .expand-arrow { color: #888; margin-left: 8px; transition: transform 0.3s ease-out; }
+        #research-app .task-item.active .expand-arrow { transform: rotate(180deg); }
+        #research-app .reward-details-container { max-height: 0; overflow: hidden; transition: max-height 0.35s ease-out; padding: 0 15px; }
+        #research-app .task-item.active .reward-details-container { max-height: 1000px; padding-bottom: 15px; transition: max-height 0.5s ease-in; }
+        #research-app .possible-rewards-text { font-size: 0.8em; color: #888; margin: 10px 0 5px; border-top: 1px solid #f0f0f0; padding-top: 15px; }
+        #research-app .reward-detail-row { display: flex; align-items: center; padding: 10px 0; border-top: 1px solid #f0f0f0; position: relative; }
+        #research-app .reward-detail-row:first-child { border-top: none; padding-top: 5px; }
+        #research-app .reward-detail-row .reward-bubble { width: 64px; height: 64px; background-size: cover; border-radius: 50%; display: flex; align-items: center; justify-content: center; position: relative; flex-shrink: 0; }
+        #research-app .reward-detail-row .reward-bubble img { max-width: 85%; max-height: 85%; }
+        #research-app .reward-detail-row .reward-details { flex-grow: 1; padding-left: 15px; display: flex; justify-content: space-between; align-items: center; }
+        #research-app .reward-detail-row .reward-name { font-weight: 500; }
+        #research-app .reward-detail-row .cp-values { text-align: right; }
+        #research-app .reward-detail-row .cp-values div { font-size: 0.7em; color: #888; }
+        #research-app .reward-detail-row .cp-values span { display: inline-block; padding: 0 5px; font-weight: normal; font-size: 1.1em; }
+        #research-app .hide-items .reward-preview .reward-bubble:not(.featured), #research-app .hide-items .reward-detail-row:not(.featured) { display: none; }
+        #research-app .hide-items .task-item.has-no-featured-rewards { display: none; }
+        #research-app .reward-detail-row .reward-bubble .pokemon-on-energy { position: absolute; top: -5px; right: -8px; width: 28px; height: 28px; background-color: #fff; border-radius: 50%; box-shadow: 0 1px 2px rgba(0,0,0,0.2); display: flex; align-items: center; justify-content: center; border: 1px solid #ddd; }
+        #research-app .reward-detail-row .reward-bubble .pokemon-on-energy img { width: 90%; height: 90%; object-fit: contain; }
+        #research-app .reward-detail-row .shiny-icon { position: absolute; width: 26px; height: 26px; top: -4px; right: -4px; z-index: 2; filter: drop-shadow(0 0 2px rgba(0,0,0,0.6)); }
+        #research-app .reward-detail-row .cp-values .max-cp { font-weight: 700; color: #27ae60; }
+        #research-app .reward-detail-row .cp-values .min-cp { color: #7f8c8d; }
+        #research-app .reward-detail-row .cp-values .max-cp div, #research-app .reward-detail-row .cp-values .min-cp div { color: #95a5a6; }
+
+        /* --- ================================ --- */
+        /* --- 4. 孵蛋列表 (App 4) 樣式 --- */
+        /* --- ================================ --- */
+        #eggs-app .page-content {
+            max-width: 960px;
+            margin: 0 auto;
+        }
+        #eggs-app h1, #eggs-app h2 {
+            font-family: Lato, "Helvetica Neue", Arial, Helvetica, sans-serif;
+        }
+        #eggs-app hr {
+            border: 0;
+            border-top: 1px solid #dee2e6;
+            margin: 2rem 0;
+        }
+        #eggs-app .egg-list-flex {
+            display: flex;
+            flex-wrap: wrap;
+            list-style: none;
+            padding: 0;
+            margin: 0 -8px;
+        }
+        #eggs-app .egg-list-item {
+            text-align: center;
+            width: 120px;
+            margin: 0 8px 16px;
+            position: relative;
+        }
+        #eggs-app .egg-list-img {
+            border-radius: 50%;
+            margin: 0 auto 8px;
+            width: 104px;
+            height: 104px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-size: cover;
+        }
+        #eggs-app .egg2km {
+            background-image: linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1)), url('https://assets.dittobase.com/go/items/egg-2km.png');
+    
+            /* 其他樣式保持不變 */
+            background-size: cover;
+        }
+        #eggs-app .egg5km {
+            background-image: linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1)), url('https://assets.dittobase.com/go/items/egg-5km.png');
+
+            /* 其他樣式保持不變 */
+            background-size: cover;
+        }
+        #eggs-app .egg7km {
+            background-image: linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1)), url('https://assets.dittobase.com/go/items/egg-7km.png');
+
+            /* 其他樣式保持不變 */
+            background-size: cover;
+        }
+        #eggs-app .egg10km {
+            background-image: linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1)), url('https://assets.dittobase.com/go/items/egg-10km.png');
+
+            /* 其他樣式保持不變 */
+            background-size: cover;
+        }
+        #eggs-app .egg12km {
+            background-image: linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1)), url('https://assets.dittobase.com/go/items/egg-12km.png');
+    
+            /* 其他樣式保持不變 */
+            background-size: cover;
+        }
+        #eggs-app .egg-list-img img {
+            width: 150%;
+            height: 150%;
+        }
+        #eggs-app .shiny-icon {
+            position: absolute;
+            top: 0;
+            right: 5px;
+            width: 28px;
+        }
+        #eggs-app .hatch-pkmn {
+            font-size: 1.1em;
+            font-weight: bold;
+        }
+        #eggs-app .font-size-smaller {
+            font-size: 0.9em;
+            color: #555555;
+        }
+        #eggs-app .font-size-x-small {
+            font-size: 0.8em;
+        }
     </style>
 </head>
 <body>
@@ -359,20 +498,19 @@
         <nav class="app-nav">
             <button class="tab-button active" data-target="cp-checker-app">IV100 CP 查詢</button>
             <button class="tab-button" data-target="id-selector-app">寶可夢編號篩選器</button>
+            <button class="tab-button" data-target="research-app">田野調查任務</button>
+            <button class="tab-button" data-target="eggs-app">孵蛋列表</button>
         </nav>
 
         <div id="cp-checker-app" class="app-content active">
              <div class="container">
-                 <h1>Pokémon Go</h1>
-                 <p style="text-align: center; margin-top: -15px; margin-bottom: 25px; color: #606770;">20等 & 25等 IV100 CP 查詢</p>
-         
-                 <div class="search-area">
-                     <input type="text" id="cpSearchInput" placeholder="輸入寶可夢名稱、形態或全國圖鑑編號...">
-                 </div>
-                 
-                 <div id="statusMessage">正在初始化...</div>
-         
-                 <div id="resultsContainer"></div>
+                <h1>Pokémon Go</h1>
+                <p style="text-align: center; margin-top: -15px; margin-bottom: 25px; color: #606770;">20等 & 25等 IV100 CP 查詢</p>
+                <div class="search-area">
+                    <input type="text" id="cpSearchInput" placeholder="輸入寶可夢名稱、形態或全國圖鑑編號...">
+                </div>
+                <div id="statusMessage">正在初始化...</div>
+                <div id="resultsContainer"></div>
              </div>
         </div>
 
@@ -392,28 +530,25 @@
             </header>
             <main>
                 <div class="search-container">
-                     <input type="search" id="idSearchInput" placeholder="依編號或名稱搜尋寶可夢...">
+                    <input type="search" id="idSearchInput" placeholder="依編號或名稱搜尋寶可夢...">
                 </div>
                 <div class="controls">
                     <div class="control-group">
                         <button id="select-starters">顯示所有御三家</button>
                         <label>
-                            <input type="checkbox" id="include-starter-evolutions">
-                            包含進化型態
+                            <input type="checkbox" id="include-starter-evolutions"> 包含進化型態
                         </label>
                     </div>
                     <div class="control-group">
                         <button id="select-pseudos">顯示所有準神</button>
                         <label>
-                            <input type="checkbox" id="include-pseudo-evolutions">
-                            包含進化型態
+                            <input type="checkbox" id="include-pseudo-evolutions"> 包含進化型態
                         </label>
                     </div>
                     <div class="control-group">
                         <button id="select-mega">顯示可超級進化</button>
                         <label>
-                            <input type="checkbox" id="include-mega-evolutions">
-                            包含進化型態
+                            <input type="checkbox" id="include-mega-evolutions"> 包含進化型態
                         </label>
                     </div>
                     <button id="select-all-shown" style="display: none; background-color: #FFDE00; color: #333;">全選當前顯示</button>
@@ -424,313 +559,536 @@
                 <div id="pokemon-container" class="pokemon-grid"></div>
             </main>
         </div>
-    </div>
-
-<script src="precomputed_pokemon_cp.js"></script> <script src="pokemon_translation_map.js"></script> 
-    <script src="pokemon_names_from_api.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // --- 全域控制與頁籤切換邏輯 ---
-            const tabButtons = document.querySelectorAll('.tab-button');
-            const appContents = document.querySelectorAll('.app-content');
-            
-            let cpAppInitialized = false;
-            let idAppInitialized = false;
-
-            tabButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    tabButtons.forEach(btn => btn.classList.remove('active'));
-                    button.classList.add('active');
-
-                    const targetAppId = button.dataset.target;
-
-                    appContents.forEach(content => content.classList.remove('active'));
-                    const targetApp = document.getElementById(targetAppId);
-                    targetApp.classList.add('active');
-
-                    if (targetAppId === 'cp-checker-app' && !cpAppInitialized) {
-                        initializeCpChecker();
-                        cpAppInitialized = true;
-                    } else if (targetAppId === 'id-selector-app' && !idAppInitialized) {
-                        initializeIdSelector();
-                        idAppInitialized = true;
-                    }
-                });
-            });
-
-            initializeCpChecker();
-            cpAppInitialized = true;
-
-            // ======================= 【修改點 2: 重構 CP 查詢器邏輯】 =======================
-// ======================= 【修改點 2: 重構 CP 查詢器邏輯】 ======================= 
-// ======================= 【修改點: 重構 CP 查詢器邏輯】 =======================
-function initializeCpChecker() {
-    const searchInput = document.getElementById('cpSearchInput');
-    const resultsContainer = document.getElementById('resultsContainer');
-    const statusMessage = document.getElementById('statusMessage');
-
-    const allPokemonData = POKEMON_CP_DATA;
-
-    if (!allPokemonData || allPokemonData.length === 0) {
-        statusMessage.textContent = "錯誤：寶可夢資料未載入，請檢查 precomputed_pokemon_cp.js 檔案。";
-        statusMessage.style.color = 'red';
-        return;
-    }
-
-    // --- 【步驟 1】: 一次性建立所有寶可夢卡片 ---
-    // 我們只會執行這段程式碼一次，來建立所有的 DOM 元素。
-    // 這避免了在每次搜尋時都重新建立，是效能提升的關鍵。
-    function createAllPokemonCards() {
-        const fragment = document.createDocumentFragment(); // 使用 fragment 提升效能
-        allPokemonData.forEach(pokemon => {
-            const pokemonCard = document.createElement('div');
-            pokemonCard.className = 'pokemon-card';
-            // 將搜尋需要的資訊儲存在 data-* 屬性中，方便後續篩選
-            pokemonCard.dataset.name = pokemon.name.toLowerCase();
-            pokemonCard.dataset.id = pokemon.id;
-
-            // 【關鍵修正】: 增加 img.loading = 'lazy'
-            // 圖片將會延遲載入，直到使用者滾動到它們附近
-            pokemonCard.innerHTML = `
-                <img src="${pokemon.imageUrl}" alt="${pokemon.name}" loading="lazy">
-                <div class="pokemon-info">
-                    <h2>${pokemon.name}</h2>
-                    <div class="id">#${pokemon.id}</div>
-                    <div class="cp-container">
-                        <div class="cp"><span>Lv20 100% </span>${pokemon.cp20}</div>
-                        <div class="cp"><span>Lv25 100% </span>${pokemon.cp25}</div>
-                    </div>
-                </div>
-            `;
-            fragment.appendChild(pokemonCard);
-        });
-        resultsContainer.appendChild(fragment); // 一次性將所有卡片加入 DOM
-        statusMessage.textContent = `資料載入成功！共 ${allPokemonData.length} 筆資料。請開始輸入以搜尋。`;
-    }
-
-    // --- 【步驟 2】: 修改篩選邏輯 ---
-    // 這個函式不再刪除和重建 DOM，而是切換現有卡片的顯示狀態。
-    function filterResults(query) {
-        const allCards = resultsContainer.querySelectorAll('.pokemon-card');
-        let foundMatch = false;
-
-        allCards.forEach(card => {
-            const pokemonName = card.dataset.name;
-            const pokemonId = card.dataset.id;
-            const isQueryNumeric = !isNaN(query);
-
-            let isMatch = false;
-            if (!query) {
-                isMatch = true; // 如果搜尋框是空的，顯示所有卡片
-            } else if (isQueryNumeric) {
-                isMatch = pokemonId.startsWith(query);
-            } else {
-                isMatch = pokemonName.includes(query);
-            }
-
-            if (isMatch) {
-                card.style.display = 'flex';
-                foundMatch = true;
-            } else {
-                card.style.display = 'none';
-            }
-        });
         
-        // 更新狀態訊息
-        if (!foundMatch && query) {
-             statusMessage.textContent = "找不到符合條件的寶可夢。";
-        } else if (query) {
-             statusMessage.textContent = `顯示 "${query}" 的搜尋結果...`;
-        } else {
-             statusMessage.textContent = `資料載入成功！共 ${allPokemonData.length} 筆資料。請開始輸入以搜尋。`;
+        <div id="research-app" class="app-content">
+            <header>
+                <h1>當前田野調查任務</h1>
+                <div class="tabs">
+                    <input type="radio" id="less-option" name="reward-toggle" checked>
+                    <label class="tab" for="less-option">精選獎勵</label>
+                    <input type="radio" id="all-option" name="reward-toggle">
+                    <label class="tab" for="all-option">所有獎勵</label>
+                    <span class="glider"></span>
+                </div>
+            </header>
+            <main id="research-container">
+                <div id="left-column" class="research-column"></div>
+                <div id="right-column" class="research-column"></div>
+            </main>
+        </div>
+        
+<div id="eggs-app" class="app-content">
+    <div class="page-content">
+        <div class="header-page">
+            <h1 class="page-title">當期蛋池孵化列表</h1>
+            <div class="page-date">最後更新：2025年7月31日</div>
+        </div>
+        <p>這些是 Pokémon GO 目前「Delightful Days」季節中所有可能的孵化寶可夢。</p>
+        <hr/>
+        
+        <h2>2 公里蛋</h2>
+        <ul class="egg-list-flex" id="egg-list-2km"></ul>
+        <hr/>
+        
+        <h2>5 公里蛋</h2>
+        <ul class="egg-list-flex" id="egg-list-5km"></ul>
+        
+        <h2>5 公里蛋 (冒險同步獎勵)</h2>
+        <p>此類蛋可從每週的「時時刻刻冒險」獎勵中獲得。</p>
+        <ul class="egg-list-flex" id="egg-list-5km-sync"></ul>
+        <hr/>
+        
+        <h2>7 公里蛋</h2>
+        <ul class="egg-list-flex" id="egg-list-7km"></ul>
+
+        <h2>7 公里蛋 (路線禮物)</h2>
+        <p>此類蛋可從路線終點交換夥伴「馬特奧」的友情禮物中獲得。</p>
+        <ul class="egg-list-flex" id="egg-list-7km-route"></ul>
+        <hr/>
+
+        <h2>10 公里蛋</h2>
+        <ul class="egg-list-flex" id="egg-list-10km"></ul>
+        
+        <h2>10 公里蛋 (冒險同步獎勵)</h2>
+        <p>此類蛋可從每週的「時時刻刻冒險」獎勵中獲得。</p>
+        <ul class="egg-list-flex" id="egg-list-10km-sync"></ul>
+        <hr/>
+        
+        <h2>12 公里蛋</h2>
+        <ul class="egg-list-flex" id="egg-list-12km"></ul>
+    </div>
+</div>
+
+<script src="precomputed_pokemon_cp.js"></script>
+<script src="pokemon_translation_map.js"></script>
+<script src="pokemon_names_from_api.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // --- 全域控制與頁籤切換邏輯 ---
+        const tabButtons = document.querySelectorAll('.tab-button');
+        const appContents = document.querySelectorAll('.app-content');
+        
+        let cpAppInitialized = false;
+        let idAppInitialized = false;
+        let researchAppInitialized = false;
+        let eggsAppInitialized = false;
+
+        tabButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                tabButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+
+                const targetAppId = button.dataset.target;
+
+                appContents.forEach(content => content.classList.remove('active'));
+                const targetApp = document.getElementById(targetAppId);
+                targetApp.classList.add('active');
+                
+                // --- 延遲載入邏輯：只在第一次點擊時初始化對應的 App ---
+                if (targetAppId === 'cp-checker-app' && !cpAppInitialized) {
+                    initializeCpChecker();
+                    cpAppInitialized = true;
+                } else if (targetAppId === 'id-selector-app' && !idAppInitialized) {
+                    initializeIdSelector();
+                    idAppInitialized = true;
+                } else if (targetAppId === 'research-app' && !researchAppInitialized) {
+                    initializeResearchApp();
+                    researchAppInitialized = true;
+                } else if (targetAppId === 'eggs-app' && !eggsAppInitialized) {
+                    initializeEggsApp();
+                    eggsAppInitialized = true;
+                }
+            });
+        });
+
+        // 預設載入第一個 App
+        initializeCpChecker();
+        cpAppInitialized = true;
+
+        // =======================
+        // App 1: CP 查詢器
+        // =======================
+        function initializeCpChecker() {
+            const searchInput = document.getElementById('cpSearchInput');
+            const resultsContainer = document.getElementById('resultsContainer');
+            const statusMessage = document.getElementById('statusMessage');
+            if (!searchInput) return; // 如果元素不存在，直接返回
+
+            const allPokemonData = POKEMON_CP_DATA;
+            if (!allPokemonData || allPokemonData.length === 0) {
+                statusMessage.textContent = "錯誤：寶可夢資料未載入。";
+                statusMessage.style.color = 'red';
+                return;
+            }
+
+            function createAllPokemonCards() {
+                const fragment = document.createDocumentFragment();
+                allPokemonData.forEach(pokemon => {
+                    const pokemonCard = document.createElement('div');
+                    pokemonCard.className = 'pokemon-card';
+                    pokemonCard.dataset.name = pokemon.name.toLowerCase();
+                    pokemonCard.dataset.id = pokemon.id;
+                    pokemonCard.innerHTML = `
+                        <img src="${pokemon.imageUrl}" alt="${pokemon.name}" loading="lazy">
+                        <div class="pokemon-info">
+                            <h2>${pokemon.name}</h2>
+                            <div class="id">#${pokemon.id}</div>
+                            <div class="cp-container">
+                                <div class="cp"><span>Lv20 100% </span>${pokemon.cp20}</div>
+                                <div class="cp"><span>Lv25 100% </span>${pokemon.cp25}</div>
+                            </div>
+                        </div>`;
+                    fragment.appendChild(pokemonCard);
+                });
+                resultsContainer.appendChild(fragment);
+                statusMessage.textContent = `資料載入成功！共 ${allPokemonData.length} 筆資料。`;
+            }
+
+            function filterResults(query) {
+                const allCards = resultsContainer.querySelectorAll('.pokemon-card');
+                let foundMatch = false;
+                allCards.forEach(card => {
+                    const pokemonName = card.dataset.name;
+                    const pokemonId = card.dataset.id;
+                    const isQueryNumeric = !isNaN(query);
+                    let isMatch = !query || (isQueryNumeric ? pokemonId.startsWith(query) : pokemonName.includes(query));
+                    card.style.display = isMatch ? 'flex' : 'none';
+                    if (isMatch) foundMatch = true;
+                });
+                if (!foundMatch && query) {
+                     statusMessage.textContent = "找不到符合條件的寶可夢。";
+                } else {
+                     statusMessage.textContent = `資料載入成功！共 ${allPokemonData.length} 筆資料。`;
+                }
+            }
+            searchInput.addEventListener('input', (event) => {
+                const query = event.target.value.trim().toLowerCase();
+                filterResults(query);
+            });
+            createAllPokemonCards();
         }
-    }
 
-    // --- 【步驟 3】: 更新事件監聽器 ---
-    searchInput.addEventListener('input', (event) => {
-        const query = event.target.value.trim().toLowerCase();
-        filterResults(query);
-    });
+// =======================
+        // App 2: 寶可夢編號篩選器
+        // =======================
+        function initializeIdSelector() {
+            const pokemonContainer = document.getElementById('pokemon-container');
+            if (!pokemonContainer || pokemonContainer.innerHTML !== '') return; // 防止重複初始化
 
-    // --- 初始化 ---
-    createAllPokemonCards(); // 載入 App 時就建立好所有卡片
-}
-// ======================= 【修改結束】 =======================
+            const POKEMON_COUNT = 1025;
+            const selectedIdsOutput = document.getElementById('selected-ids');
+            const searchInput = document.getElementById('idSearchInput');
+            const startersButton = document.getElementById('select-starters');
+            const pseudosButton = document.getElementById('select-pseudos');
+            const evolvedButton = document.getElementById('select-evolved');
+            const clearButton = document.getElementById('clear-all');
+            const includeStarterEvolutionsCheckbox = document.getElementById('include-starter-evolutions');
+            const includePseudoEvolutionsCheckbox = document.getElementById('include-pseudo-evolutions');
+            const selectAllShownButton = document.getElementById('select-all-shown');
+            const showAllButton = document.getElementById('show-all');
+            const megaButton = document.getElementById('select-mega');
+            const includeMegaEvolutionsCheckbox = document.getElementById('include-mega-evolutions');
+            const copyButton = document.getElementById('copy-button');
+            
+            let selectedPokemon = new Set();
+            const STARTER_FAMILIES_IDS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 152, 153, 154, 155, 156, 157, 158, 159, 160, 252, 253, 254, 255, 256, 257, 258, 259, 260, 387, 388, 389, 390, 391, 392, 393, 394, 395, 495, 496, 497, 498, 499, 500, 501, 502, 503, 650, 651, 652, 653, 654, 655, 656, 657, 658, 722, 723, 724, 725, 726, 727, 728, 729, 730, 810, 811, 812, 813, 814, 815, 816, 817, 818, 906, 907, 908, 909, 910, 911, 912, 913, 914];
+            const STARTERS_BASE_IDS = [1, 4, 7, 152, 155, 158, 252, 255, 258, 387, 390, 393, 495, 498, 501, 650, 653, 656, 722, 725, 728, 810, 813, 816, 906, 909, 912];
+            const PSEUDO_FAMILIES_IDS = [147, 148, 149, 246, 247, 248, 371, 372, 373, 374, 375, 376, 443, 444, 445, 633, 634, 635, 704, 705, 706, 782, 783, 784, 885, 886, 887, 996, 997, 998];
+            const PSEUDOS_BASE_IDS = [147, 246, 371, 374, 443, 633, 704, 782, 885, 996];
+            const MEGA_EVO_FAMILY_IDS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 13, 14, 15, 16, 17, 18, 63, 64, 65, 79, 80, 92, 93, 94, 95, 115, 123, 127, 129, 130, 142, 150, 179, 180, 181, 208, 212, 214, 228, 229, 246, 247, 248, 252, 253, 254, 255, 256, 257, 258, 259, 260, 280, 281, 282, 302, 303, 304, 305, 306, 307, 308, 309, 310, 318, 319, 322, 323, 333, 334, 353, 354, 359, 361, 362, 371, 372, 373, 374, 375, 376, 380, 381, 382, 383, 384, 427, 428, 443, 444, 445, 447, 448, 459, 460, 475, 531, 719].sort((a, b) => a - b);
+            const MEGA_EVO_BASE_IDS = [3, 6, 9, 15, 18, 65, 80, 94, 115, 127, 130, 142, 150, 181, 208, 212, 214, 229, 248, 254, 257, 260, 282, 302, 303, 306, 308, 310, 319, 323, 334, 354, 359, 362, 373, 376, 380, 381, 382, 383, 384, 428, 445, 448, 460, 475, 531, 719].sort((a, b) => a - b);
+            const BASE_FORM_IDS = new Set([1, 4, 7, 10, 13, 16, 19, 21, 23, 25, 27, 29, 32, 35, 37, 39, 41, 43, 46, 48, 50, 52, 54, 56, 58, 60, 63, 66, 69, 72, 74, 77, 79, 81, 83, 84, 86, 88, 90, 92, 95, 96, 98, 100, 102, 104, 106, 107, 108, 109, 111, 113, 114, 115, 116, 118, 120, 122, 123, 124, 125, 126, 127, 128, 129, 131, 132, 133, 137, 138, 140, 142, 143, 144, 145, 146, 147, 150, 151, 152, 155, 158, 161, 163, 165, 167, 170, 172, 173, 174, 175, 177, 179, 183, 185, 187, 190, 191, 193, 194, 198, 200, 201, 202, 203, 204, 206, 207, 209, 211, 213, 214, 215, 216, 218, 220, 222, 223, 225, 226, 227, 228, 231, 234, 235, 236, 238, 239, 240, 241, 242, 243, 244, 245, 246, 249, 250, 251, 252, 255, 258, 261, 263, 265, 270, 273, 276, 278, 280, 283, 285, 287, 290, 293, 296, 298, 299, 300, 302, 303, 304, 307, 309, 311, 312, 313, 314, 315, 316, 318, 320, 322, 324, 325, 327, 328, 331, 333, 335, 336, 337, 338, 339, 341, 343, 345, 347, 349, 351, 352, 353, 355, 357, 358, 359, 360, 361, 363, 366, 369, 370, 371, 374, 377, 378, 379, 380, 381, 382, 383, 384, 385, 386, 387, 390, 393, 396, 399, 401, 403, 406, 408, 410, 412, 415, 417, 418, 420, 422, 424, 425, 427, 431, 433, 434, 436, 438, 439, 440, 441, 442, 443, 446, 447, 449, 451, 453, 455, 456, 458, 459, 480, 481, 482, 483, 484, 485, 486, 487, 488, 489, 491, 492, 493, 494, 495, 498, 501, 504, 506, 509, 511, 513, 515, 517, 519, 522, 524, 527, 529, 531, 532, 535, 538, 539, 540, 543, 546, 548, 550, 551, 554, 556, 557, 559, 561, 562, 564, 566, 568, 570, 572, 574, 577, 580, 582, 585, 587, 588, 590, 592, 594, 595, 597, 599, 602, 605, 607, 610, 613, 615, 616, 618, 619, 621, 622, 624, 626, 627, 629, 631, 632, 633, 636, 638, 639, 640, 641, 642, 643, 644, 645, 646, 647, 648, 649, 650, 653, 656, 659, 661, 664, 667, 669, 672, 674, 676, 677, 679, 682, 684, 686, 688, 690, 692, 694, 696, 698, 701, 702, 703, 704, 707, 708, 710, 712, 714, 716, 717, 718, 719, 720, 721, 722, 725, 728, 731, 734, 736, 739, 741, 742, 744, 746, 747, 749, 751, 753, 755, 757, 759, 761, 764, 765, 766, 767, 769, 771, 772, 773, 774, 775, 776, 777, 778, 779, 781, 782, 785, 786, 787, 788, 789, 791, 792, 793, 794, 795, 796, 797, 798, 799, 800, 801, 802, 803, 804, 805, 806, 807, 808, 809, 810, 813, 816, 819, 821, 824, 827, 829, 831, 833, 835, 837, 840, 843, 845, 846, 848, 850, 852, 854, 856, 859, 862, 863, 864, 865, 866, 867, 868, 869, 870, 871, 872, 874, 875, 876, 877, 878, 880, 881, 882, 883, 884, 885, 888, 889, 890, 891, 892, 893, 894, 895, 896, 897, 898, 899, 900, 901, 902, 903, 904, 905, 906, 909, 912, 915, 917, 919, 921, 924, 926, 928, 931, 932, 934, 935, 938, 940, 942, 944, 946, 948, 950, 951, 953, 955, 957, 960, 962, 965, 967, 968, 969, 971, 973, 976, 978, 980, 981, 982, 983, 984, 985, 986, 987, 988, 989, 990, 991, 992, 993, 994, 995, 996, 999, 1001, 1002, 1003, 1004, 1005, 1006, 1007, 1008, 1009, 1010, 1011, 1012, 1014, 1016, 1017, 1018, 1020, 1021, 1022, 1023, 1024, 1025]);
 
-            // --- App 2: 寶可夢編號篩選器 初始化函式 (此部分不變) ---
-            function initializeIdSelector() {
-                // ... 這裡的程式碼與您原本提供的一樣，保持不變 ...
-                const POKEMON_COUNT = 1025;
-                const pokemonContainer = document.getElementById('pokemon-container');
-                const selectedIdsOutput = document.getElementById('selected-ids');
-                const searchInput = document.getElementById('idSearchInput');
-                const startersButton = document.getElementById('select-starters');
-                const pseudosButton = document.getElementById('select-pseudos');
-                const evolvedButton = document.getElementById('select-evolved');
-                const clearButton = document.getElementById('clear-all');
-                const includeStarterEvolutionsCheckbox = document.getElementById('include-starter-evolutions');
-                const includePseudoEvolutionsCheckbox = document.getElementById('include-pseudo-evolutions');
-                const selectAllShownButton = document.getElementById('select-all-shown');
-                const showAllButton = document.getElementById('show-all');
-                const megaButton = document.getElementById('select-mega');
-                const includeMegaEvolutionsCheckbox = document.getElementById('include-mega-evolutions');
-                const copyButton = document.getElementById('copy-button');
-                
-                let selectedPokemon = new Set();
+            const fragment = document.createDocumentFragment();
+            for (let i = 1; i <= POKEMON_COUNT; i++) {
+                const pokemonId = i;
+                const pokemonName = POKEMON_NAMES[pokemonId - 1] || `Pokemon #${pokemonId}`;
+                const card = document.createElement('div');
+                card.className = 'pokemon-card';
+                card.dataset.id = pokemonId;
+                card.dataset.name = pokemonName;
+                card.innerHTML = `<img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemonId}.png" alt="${pokemonName}" loading="lazy"><span class="pokemon-name">${pokemonName}</span>`;
+                card.addEventListener('click', handlePokemonClick);
+                fragment.appendChild(card);
+            }
+            pokemonContainer.appendChild(fragment);
+            
+            // --- Helper Functions ---
+            function updateOutput() {
+                const sortedIds = Array.from(selectedPokemon).sort((a, b) => a - b);
+                selectedIdsOutput.textContent = sortedIds.join(',');
+            }
 
-                const STARTERS_BASE_IDS = [1, 4, 7, 152, 155, 158, 252, 255, 258, 387, 390, 393, 495, 498, 501, 650, 653, 656, 722, 725, 728, 810, 813, 816, 906, 909, 912];
-                const STARTER_FAMILIES_IDS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 152, 153, 154, 155, 156, 157, 158, 159, 160, 252, 253, 254, 255, 256, 257, 258, 259, 260, 387, 388, 389, 390, 391, 392, 393, 394, 395, 495, 496, 497, 498, 499, 500, 501, 502, 503, 650, 651, 652, 653, 654, 655, 656, 657, 658, 722, 723, 724, 725, 726, 727, 728, 729, 730, 810, 811, 812, 813, 814, 815, 816, 817, 818, 906, 907, 908, 909, 910, 911, 912, 913, 914];
-                const PSEUDOS_BASE_IDS = [147, 246, 371, 374, 443, 633, 704, 782, 885, 996];
-                const PSEUDO_FAMILIES_IDS = [147, 148, 149, 246, 247, 248, 371, 372, 373, 374, 375, 376, 443, 444, 445, 633, 634, 635, 704, 705, 706, 782, 783, 784, 885, 886, 887, 996, 997, 998];
-                const BASE_FORM_IDS = new Set([1, 4, 7, 10, 13, 16, 19, 21, 23, 25, 27, 29, 32, 35, 37, 39, 41, 43, 46, 48, 50, 52, 54, 56, 58, 60, 63, 66, 69, 72, 74, 77, 79, 81, 83, 84, 86, 88, 90, 92, 95, 96, 98, 100, 102, 104, 106, 107, 108, 109, 111, 113, 114, 115, 116, 118, 120, 122, 123, 124, 125, 126, 127, 128, 129, 131, 132, 133, 137, 138, 140, 142, 143, 144, 145, 146, 147, 150, 151, 152, 155, 158, 161, 163, 165, 167, 170, 172, 173, 174, 175, 177, 179, 183, 185, 187, 190, 191, 193, 194, 198, 200, 201, 202, 203, 204, 206, 207, 209, 211, 213, 214, 215, 216, 218, 220, 222, 223, 225, 226, 227, 228, 231, 234, 235, 236, 238, 239, 240, 241, 242, 243, 244, 245, 246, 249, 250, 251, 252, 255, 258, 261, 263, 265, 270, 273, 276, 278, 280, 283, 285, 287, 290, 293, 296, 298, 299, 300, 302, 303, 304, 307, 309, 311, 312, 313, 314, 315, 316, 318, 320, 322, 324, 325, 327, 328, 331, 333, 335, 336, 337, 338, 339, 341, 343, 345, 347, 349, 351, 352, 353, 355, 357, 358, 359, 360, 361, 363, 366, 369, 370, 371, 374, 377, 378, 379, 380, 381, 382, 383, 384, 385, 386, 387, 390, 393, 396, 399, 401, 403, 406, 408, 410, 412, 415, 417, 418, 420, 422, 424, 425, 427, 431, 433, 434, 436, 438, 439, 440, 441, 442, 443, 446, 447, 449, 451, 453, 455, 456, 458, 459, 480, 481, 482, 483, 484, 485, 486, 487, 488, 489, 491, 492, 493, 494, 495, 498, 501, 504, 506, 509, 511, 513, 515, 517, 519, 522, 524, 527, 529, 531, 532, 535, 538, 539, 540, 543, 546, 548, 550, 551, 554, 556, 557, 559, 561, 562, 564, 566, 568, 570, 572, 574, 577, 580, 582, 585, 587, 588, 590, 592, 594, 595, 597, 599, 602, 605, 607, 610, 613, 615, 616, 618, 619, 621, 622, 624, 626, 627, 629, 631, 632, 633, 636, 638, 639, 640, 641, 642, 643, 644, 645, 646, 647, 648, 649, 650, 653, 656, 659, 661, 664, 667, 669, 672, 674, 676, 677, 679, 682, 684, 686, 688, 690, 692, 694, 696, 698, 701, 702, 703, 704, 707, 708, 710, 712, 714, 716, 717, 718, 719, 720, 721, 722, 725, 728, 731, 734, 736, 739, 741, 742, 744, 746, 747, 749, 751, 753, 755, 757, 759, 761, 764, 765, 766, 767, 769, 771, 772, 773, 774, 775, 776, 777, 778, 779, 781, 782, 785, 786, 787, 788, 789, 791, 792, 793, 794, 795, 796, 797, 798, 799, 800, 801, 802, 803, 804, 805, 806, 807, 808, 809, 810, 813, 816, 819, 821, 824, 827, 829, 831, 833, 835, 837, 840, 843, 845, 846, 848, 850, 852, 854, 856, 859, 862, 863, 864, 865, 866, 867, 868, 869, 870, 871, 872, 874, 875, 876, 877, 878, 880, 881, 882, 883, 884, 885, 888, 889, 890, 891, 892, 893, 894, 895, 896, 897, 898, 899, 900, 901, 902, 903, 904, 905, 906, 909, 912, 915, 917, 919, 921, 924, 926, 928, 931, 932, 934, 935, 938, 940, 942, 944, 946, 948, 950, 951, 953, 955, 957, 960, 962, 965, 967, 968, 969, 971, 973, 976, 978, 980, 981, 982, 983, 984, 985, 986, 987, 988, 989, 990, 991, 992, 993, 994, 995, 996, 999, 1001, 1002, 1003, 1004, 1005, 1006, 1007, 1008, 1009, 1010, 1011, 1012, 1014, 1016, 1017, 1018, 1020, 1021, 1022, 1023, 1024, 1025]);
-                const MEGA_EVO_BASE_IDS = [3, 6, 9, 15, 18, 65, 80, 94, 115, 127, 130, 142, 150, 181, 208, 212, 214, 229, 248, 254, 257, 260, 282, 302, 303, 306, 308, 310, 319, 323, 334, 354, 359, 362, 373, 376, 380, 381, 382, 383, 384, 428, 445, 448, 460, 475, 531, 719].sort((a, b) => a - b);
-                const MEGA_EVO_FAMILY_IDS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 13, 14, 15, 16, 17, 18, 63, 64, 65, 79, 80, 92, 93, 94, 95, 115, 123, 127, 129, 130, 142, 150, 179, 180, 181, 208, 212, 214, 228, 229, 246, 247, 248, 252, 253, 254, 255, 256, 257, 258, 259, 260, 280, 281, 282, 302, 303, 304, 305, 306, 307, 308, 309, 310, 318, 319, 322, 323, 333, 334, 353, 354, 359, 361, 362, 371, 372, 373, 374, 375, 376, 380, 381, 382, 383, 384, 427, 428, 443, 444, 445, 447, 448, 459, 460, 475, 531, 719].sort((a, b) => a - b);
-                
-                function updateOutput() {
-                    const sortedIds = Array.from(selectedPokemon).sort((a, b) => a - b);
-                    selectedIdsOutput.textContent = sortedIds.join(',');
+            function handlePokemonClick(event) {
+                const card = event.currentTarget;
+                const pokemonId = parseInt(card.dataset.id, 10);
+                if (selectedPokemon.has(pokemonId)) {
+                    selectedPokemon.delete(pokemonId);
+                    card.classList.remove('selected');
+                } else {
+                    selectedPokemon.add(pokemonId);
+                    card.classList.add('selected');
+                }
+                updateOutput();
+            }
+            
+            function handleSearch() {
+                selectAllShownButton.style.display = 'none';
+                const rawInput = searchInput.value.toLowerCase();
+                const searchTerms = rawInput.split(',').map(term => term.trim()).filter(term => term.length > 0);
+                const allPokemonCards = pokemonContainer.querySelectorAll('.pokemon-card');
+                
+                allPokemonCards.forEach(card => {
+                    if (searchTerms.length === 0) {
+                        card.style.display = 'flex';
+                        return;
+                    }
+                    const pokemonId = card.dataset.id;
+                    const pokemonName = card.dataset.name.toLowerCase();
+                    const isMatch = searchTerms.some(term => isNaN(term) ? pokemonName.includes(term) : pokemonId.startsWith(term));
+                    card.style.display = isMatch ? 'flex' : 'none';
+                });
+            }
+
+            function batchSelect(idList) {
+                idList.forEach(id => {
+                    selectedPokemon.add(id);
+                    const cardElement = document.querySelector(`#id-selector-app .pokemon-card[data-id='${id}']`);
+                    if (cardElement) cardElement.classList.add('selected');
+                });
+                updateOutput();
+            }
+
+            function selectEvolvedForms() {
+                const evolvedIds = [];
+                for (let i = 1; i <= POKEMON_COUNT; i++) {
+                    if (!BASE_FORM_IDS.has(i)) {
+                        evolvedIds.push(i);
+                    }
+                }
+                batchSelect(evolvedIds);
+            }
+
+            function clearAllSelections() {
+                selectedPokemon.clear();
+                document.querySelectorAll('#id-selector-app .pokemon-card.selected').forEach(card => card.classList.remove('selected'));
+                updateOutput();
+            }
+
+            function filterAndDisplay(idsToFilter) {
+                searchInput.value = '';
+                const allPokemonCards = pokemonContainer.querySelectorAll('.pokemon-card');
+                allPokemonCards.forEach(card => {
+                    const pokemonId = parseInt(card.dataset.id, 10);
+                    card.style.display = idsToFilter.includes(pokemonId) ? 'flex' : 'none';
+                });
+                selectAllShownButton.style.display = 'inline-block';
+            }
+            
+            // --- Event Listeners ---
+            searchInput.addEventListener('input', handleSearch);
+            startersButton.addEventListener('click', () => filterAndDisplay(includeStarterEvolutionsCheckbox.checked ? STARTER_FAMILIES_IDS : STARTERS_BASE_IDS));
+            pseudosButton.addEventListener('click', () => filterAndDisplay(includePseudoEvolutionsCheckbox.checked ? PSEUDO_FAMILIES_IDS : PSEUDOS_BASE_IDS));
+            megaButton.addEventListener('click', () => filterAndDisplay(includeMegaEvolutionsCheckbox.checked ? MEGA_EVO_FAMILY_IDS : MEGA_EVO_BASE_IDS));
+            evolvedButton.addEventListener('click', selectEvolvedForms);
+            clearButton.addEventListener('click', clearAllSelections);
+            
+            showAllButton.addEventListener('click', () => {
+                searchInput.value = '';
+                handleSearch();
+            });
+
+            copyButton.addEventListener('click', () => {
+                const textToCopy = selectedIdsOutput.textContent;
+                if (!textToCopy) return;
+                navigator.clipboard.writeText(textToCopy).then(() => {
+                    copyButton.textContent = '已複製!';
+                    copyButton.classList.add('copied');
+                    setTimeout(() => { 
+                        copyButton.textContent = '複製'; 
+                        copyButton.classList.remove('copied');
+                    }, 2000);
+                });
+            });
+
+            selectAllShownButton.addEventListener('click', () => {
+                const visibleCards = document.querySelectorAll('#id-selector-app .pokemon-card');
+                const idsToSelect = [];
+                visibleCards.forEach(card => {
+                    if (card.style.display !== 'none') {
+                        idsToSelect.push(parseInt(card.dataset.id, 10));
+                    }
+                });
+                batchSelect(idsToSelect);
+            });
+        }
+
+        // =======================
+        // App 3: 田野調查任務
+        // =======================
+        function initializeResearchApp() {
+            const researchAppContainer = document.getElementById('research-app');
+            // 防止重複初始化
+            if (!researchAppContainer || researchAppContainer.dataset.initialized === 'true') {
+                return;
+            }
+
+            const container = document.getElementById('research-container');
+            const toggles = researchAppContainer.querySelectorAll('input[name="reward-toggle"]');
+
+            function simpleHash(str) { let hash = 0; for (let i = 0; i < str.length; i++) { const char = str.charCodeAt(i); hash = (hash << 5) - hash + char; hash |= 0; } return Math.abs(hash); }
+            function generateCategoryColors(categoryName) { const hash = simpleHash(categoryName); const hue = hash % 360; return { mainColor: `hsl(${hue}, 65%, 50%)`, lightColor: `hsl(${hue}, 80%, 94%)` }; }
+
+            function createRewardBubble(reward) {
+                const bubble = document.createElement('div');
+                bubble.className = `reward-bubble ${reward.isFeatured ? 'featured' : ''}`;
+                bubble.innerHTML = `
+                    <img src="${reward.imageUrl}" alt="${reward.name}">
+                    ${reward.isShiny ? `<img class="shiny-icon" src="https://leekduck.com/assets/img/icons/shiny-icon.png">` : ''}
+                    ${reward.quantity ? `<div class="quantity">${reward.quantity}</div>` : ''}
+                `;
+                return bubble;
+            }
+
+            function createRewardDetailRow(reward) {
+                const row = document.createElement('div');
+                row.className = `reward-detail-row ${reward.isFeatured ? 'featured' : ''}`;
+                const hasPokemonIcon = reward.pokemonIconUrl;
+                let rewardHTML = '';
+                if (reward.type === 'encounter') {
+                    rewardHTML = `
+                        <div class="reward-bubble" style="background-image: url('https://assets.leekduck.com/img/research-encounter-bg.png');">
+                            <img src="${reward.imageUrl}" alt="${reward.name}">
+                            ${reward.isShiny ? `<img class="shiny-icon" src="https://leekduck.com/assets/img/icons/shiny-icon.png">` : ''}
+                        </div>
+                        <div class="reward-details">
+                            <span class="reward-name">${reward.name}</span>
+                            <div class="cp-values">
+                                <span class="max-cp"><div>Max CP</div>${reward.maxCp}</span>
+                                <span class="min-cp"><div>Min CP</div>${reward.minCp}</span>
+                            </div>
+                        </div>`;
+                } else {
+                    rewardHTML = `
+                        <div class="reward-bubble" style="background-color: #e0f3ff;">
+                            <img src="${reward.imageUrl}" alt="${reward.name}">
+                            ${hasPokemonIcon ? `<div class="pokemon-on-energy"><img src="${reward.pokemonIconUrl}" alt=""></div>` : ''}
+                        </div>
+                        <div class="reward-details">
+                            <span class="reward-name">${reward.name}</span>
+                        </div>`;
                 }
+                row.innerHTML = rewardHTML;
+                return row;
+            }
 
-                function handleSearch() {
-                    selectAllShownButton.style.display = 'none';
-                    const rawInput = searchInput.value.toLowerCase();
-                    const searchTerms = rawInput.split(',').map(term => term.trim()).filter(term => term.length > 0);
-                    const allPokemonCards = pokemonContainer.querySelectorAll('.pokemon-card');
-
-                    allPokemonCards.forEach(card => {
-                        if (searchTerms.length === 0) {
-                            card.style.display = 'flex';
-                            return;
-                        }
-                        const pokemonId = card.dataset.id;
-                        const pokemonName = card.dataset.name.toLowerCase();
-                        const isMatch = searchTerms.some(term => isNaN(term) ? pokemonName.includes(term) : pokemonId === term);
-                        card.style.display = isMatch ? 'flex' : 'none';
-                    });
-                }
-                
-                function handlePokemonClick(event) {
-                    const card = event.currentTarget;
-                    const pokemonId = parseInt(card.dataset.id, 10);
-                    if (selectedPokemon.has(pokemonId)) {
-                        selectedPokemon.delete(pokemonId);
-                        card.classList.remove('selected');
-                    } else {
-                        selectedPokemon.add(pokemonId);
-                        card.classList.add('selected');
-                    }
-                    updateOutput();
-                }
-
-                function batchSelect(idList) {
-                    idList.forEach(id => {
-                        selectedPokemon.add(id);
-                        const cardElement = document.querySelector(`#id-selector-app .pokemon-card[data-id='${id}']`);
-                        if (cardElement) cardElement.classList.add('selected');
-                    });
-                    updateOutput();
-                }
-
-                function selectEvolvedForms() {
-                    const evolvedIds = [];
-                    for (let i = 1; i <= POKEMON_COUNT; i++) {
-                        if (!BASE_FORM_IDS.has(i)) evolvedIds.push(i);
-                    }
-                    batchSelect(evolvedIds);
-                }
-
-                function clearAllSelections() {
-                    selectedPokemon.clear();
-                    document.querySelectorAll('#id-selector-app .pokemon-card.selected').forEach(card => card.classList.remove('selected'));
-                    updateOutput();
-                    searchInput.value = '';
-                    handleSearch();
-                }
-
-                function filterAndDisplay(idsToFilter) {
-                    searchInput.value = '';
-                    const allPokemonCards = pokemonContainer.querySelectorAll('.pokemon-card');
-                    allPokemonCards.forEach(card => {
-                        const pokemonId = parseInt(card.dataset.id, 10);
-                        card.style.display = idsToFilter.includes(pokemonId) ? 'flex' : 'none';
-                    });
-                    selectAllShownButton.style.display = 'inline-block';
-                }
-
-                if (pokemonContainer.innerHTML === '') {
-                    const fragment = document.createDocumentFragment();
-                    for (let i = 1; i <= POKEMON_COUNT; i++) {
-                        const pokemonId = i;
-                        const pokemonName = POKEMON_NAMES[pokemonId - 1] || `Pokemon #${pokemonId}`;
-                        const card = document.createElement('div');
-                        card.className = 'pokemon-card';
-                        card.dataset.id = pokemonId;
-                        card.dataset.name = pokemonName;
-                        
-                        const img = document.createElement('img');
-                        img.src = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemonId}.png`;
-                        img.alt = `Pokemon #${pokemonId}: ${pokemonName}`;
-                        img.loading = 'lazy';
-                        
-                        const nameSpan = document.createElement('span');
-                        nameSpan.className = 'pokemon-name';
-                        nameSpan.textContent = pokemonName;
-                        
-                        card.appendChild(img);
-                        card.appendChild(nameSpan);
-                        card.addEventListener('click', handlePokemonClick);
-                        fragment.appendChild(card);
-                    }
-                    pokemonContainer.appendChild(fragment);
-                }
-                
-                searchInput.addEventListener('input', handleSearch);
-                startersButton.addEventListener('click', () => filterAndDisplay(includeStarterEvolutionsCheckbox.checked ? STARTER_FAMILIES_IDS : STARTERS_BASE_IDS));
-                pseudosButton.addEventListener('click', () => filterAndDisplay(includePseudoEvolutionsCheckbox.checked ? PSEUDO_FAMILIES_IDS : PSEUDOS_BASE_IDS));
-                megaButton.addEventListener('click', () => filterAndDisplay(includeMegaEvolutionsCheckbox.checked ? MEGA_EVO_FAMILY_IDS : MEGA_EVO_BASE_IDS));
-                
-                selectAllShownButton.addEventListener('click', () => {
-                    const visibleCards = document.querySelectorAll('#id-selector-app .pokemon-card');
-                    const idsToSelect = [];
-                    visibleCards.forEach(card => {
-                        if (card.style.display !== 'none') {
-                            idsToSelect.push(parseInt(card.dataset.id, 10));
-                        }
-                    });
-                    batchSelect(idsToSelect);
-                });
-                
-                showAllButton.addEventListener('click', () => {
-                    searchInput.value = '';
-                    handleSearch();
-                });
-
-                evolvedButton.addEventListener('click', selectEvolvedForms);
-                clearButton.addEventListener('click', clearAllSelections);
-
-                copyButton.addEventListener('click', () => {
-                    const textToCopy = selectedIdsOutput.textContent;
-                    if (!textToCopy) {
-                        alert('沒有可複製的編號！');
-                        return;
-                    }
-                    navigator.clipboard.writeText(textToCopy).then(() => {
-                        const originalText = copyButton.textContent;
-                        copyButton.textContent = '已複製!';
-                        copyButton.classList.add('copied');
-                        copyButton.disabled = true;
-                        setTimeout(() => {
-                            copyButton.textContent = originalText;
-                            copyButton.classList.remove('copied');
-                            copyButton.disabled = false;
-                        }, 2000);
-                    }).catch(err => {
-                        console.error('無法將文字複製到剪貼簿:', err);
-                        alert('複製失敗。');
+            function addAccordionListeners() {
+                const allTaskHeaders = container.querySelectorAll('.task-header');
+                allTaskHeaders.forEach(header => {
+                    header.addEventListener('click', () => {
+                        header.parentElement.classList.toggle('active');
                     });
                 });
             }
-        });
-    </script>
+
+            function renderData(data) {
+                const leftColumn = document.getElementById('left-column');
+                const rightColumn = document.getElementById('right-column');
+                if (!data || !data.length || !leftColumn || !rightColumn) return;
+                leftColumn.innerHTML = '';
+                rightColumn.innerHTML = '';
+                data.forEach((category, index) => {
+                    const categoryDiv = document.createElement('div');
+                    categoryDiv.className = 'task-category';
+                    const { mainColor, lightColor } = generateCategoryColors(category.category);
+                    categoryDiv.style.setProperty('--category-main-color', mainColor);
+                    categoryDiv.style.setProperty('--category-bg-color', lightColor);
+                    const categoryTitle = document.createElement('h2');
+                    categoryTitle.textContent = category.category;
+                    categoryDiv.appendChild(categoryTitle);
+
+                    category.tasks.forEach(task => {
+                        if (task.rewards.length === 0) return;
+                        const taskItemDiv = document.createElement('div');
+                        taskItemDiv.className = 'task-item';
+                        if (!task.rewards.some(r => r.isFeatured)) {
+                            taskItemDiv.classList.add('has-no-featured-rewards');
+                        }
+                        const taskHeader = document.createElement('div');
+                        taskHeader.className = 'task-header';
+                        taskHeader.innerHTML = `<span class="task-text">${task.description}</span>`;
+                        const rewardPreview = document.createElement('div');
+                        rewardPreview.className = 'reward-preview';
+                        task.rewards.forEach(reward => {
+                            rewardPreview.appendChild(createRewardBubble(reward));
+                        });
+                        rewardPreview.innerHTML += '<span class="expand-arrow">▼</span>';
+                        taskHeader.appendChild(rewardPreview);
+                        
+                        const detailsContainer = document.createElement('div');
+                        detailsContainer.className = 'reward-details-container';
+                        const detailsContent = document.createElement('div');
+                        detailsContent.className = 'possible-rewards-content';
+                        task.rewards.forEach(reward => {
+                            detailsContent.appendChild(createRewardDetailRow(reward));
+                        });
+                        detailsContainer.appendChild(detailsContent);
+
+                        taskItemDiv.appendChild(taskHeader);
+                        taskItemDiv.appendChild(detailsContainer);
+                        categoryDiv.appendChild(taskItemDiv);
+                    });
+
+                    if (index % 2 === 0) { leftColumn.appendChild(categoryDiv); } 
+                    else { rightColumn.appendChild(categoryDiv); }
+                });
+                addAccordionListeners();
+            }
+            
+            function setupFilters() {
+                 toggles.forEach(toggle => {
+                     toggle.addEventListener('change', (event) => {
+                         container.classList.toggle('hide-items', event.target.id === 'less-option');
+                     });
+                 });
+                 const initiallyChecked = researchAppContainer.querySelector('input[name="reward-toggle"]:checked');
+                 if (initiallyChecked) {
+                     container.classList.toggle('hide-items', initiallyChecked.id === 'less-option');
+                 }
+            }
+
+            fetch('research.json')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    renderData(data);
+                    setupFilters();
+                    researchAppContainer.dataset.initialized = 'true'; // 標記為已初始化
+                })
+                .catch(error => {
+                    console.error('載入田野調查資料時發生錯誤:', error);
+                    container.innerHTML = '<p style="text-align: center; color: red;">載入資料失敗，請檢查 `research.json` 檔案是否存在且格式正確。</p>';
+                });
+        }
+        // =======================
+        // App 4: 孵蛋列表
+        // =======================
+function initializeEggsApp() {
+    // 檢查第一個容器，防止重複初始化
+    const checkContainer = document.getElementById('egg-list-2km');
+    if (!checkContainer || checkContainer.innerHTML !== '') return;
+
+    fetch('data.json')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(allPokemon => {
+            allPokemon.forEach(pokemon => {
+                // --- 【修改點】動態決定容器 ID ---
+                let containerId = `egg-list-${pokemon.eggDistance}km`;
+                
+                if (pokemon.source === 'adventure_sync') {
+                    containerId += '-sync';
+                } else if (pokemon.source === 'route_gift') {
+                    containerId += '-route';
+                }
+                
+                const container = document.getElementById(containerId);
+                // --- 修改結束 ---
+
+                if (!container) {
+                    console.warn(`找不到 ID 為 ${containerId} 的容器，跳過寶可夢: ${pokemon.name}`);
+                    return; // 如果找不到對應的容器，就跳過此寶可夢
+                }
+                
+                const listItem = document.createElement('li');
+                listItem.className = 'egg-list-item';
+                
+                const shinyIconHtml = pokemon.isShiny ? `<img class="shiny-icon" src="https://leekduck.com/assets/img/icons/shiny-icon.png" alt="shiny"/>` : '';
+                
+                listItem.innerHTML = `
+                    <div class="egg-list-img egg${pokemon.eggDistance}km">
+                        <img src="${pokemon.imageUrl}" alt="${pokemon.name}" loading="lazy"/>
+                    </div>
+                    ${shinyIconHtml}
+                    <span class="hatch-pkmn">${pokemon.name}</span><br/>
+                    <div class="font-size-smaller">
+                        <span class="font-size-x-small">CP </span>${pokemon.cpRange || 'N/A'}
+                    </div>`;
+                container.appendChild(listItem);
+            });
+        })
+        .catch(error => console.error('Error loading data.json:', error));
+}
+
+    });
+</script>
 </body>
 </html>
