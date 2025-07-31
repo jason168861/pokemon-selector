@@ -490,6 +490,22 @@
         #eggs-app .font-size-x-small {
             font-size: 0.8em;
         }
+        /* --- 響應式調整 (Responsive Adjustments) --- */
+
+/* 讓田野調查的獎勵圖示可以換行，並增加行距 */
+#research-app .reward-preview {
+    flex-wrap: wrap;
+    gap: 4px 0; /* 垂直間隔4px，水平間隔由既有樣式控制 */
+    justify-content: flex-end; /* 讓圖示靠右對齊 */
+}
+
+/* 螢幕寬度小於 768px 時觸發 (適用於多數手機) */
+@media (max-width: 768px) {
+    /* 將田野調查的容器改為垂直排列 (單欄) */
+    #research-app #research-container {
+        flex-direction: column;
+    }
+}
     </style>
 </head>
 <body>
